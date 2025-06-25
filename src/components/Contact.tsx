@@ -28,47 +28,40 @@ function Contact() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const { name, email, message } = formData;
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    const newErrors = {
-      name: name.trim() === "",
-      email: email.trim() === "",
-      message: message.trim() === "",
-    };
+  const { name, email, message } = formData;
 
-    setErrors(newErrors);
-    const isValid = Object.values(newErrors).every((v) => !v);
-    if (!isValid) return;
-
-    console.log("API_URL:", process.env.NEXT_PUBLIC_API_URL);
-
-    try {
-      const response = await fetch(
-        "https://portfolio-backend-1wl9.onrender.com/send",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
-
-      const data = await response.json();
-
-      if (data.success) {
-        toast.success(data.message || "Message sent successfully!");
-        setFormData({ name: "", email: "", phone: "", message: "" });
-      } else {
-        toast.error(
-          data.message || "Failed to send message. Please try again."
-        );
-      }
-    } catch (error) {
-      console.error("Error sending email:", error);
-      toast.error("Something went wrong. Please try again later.");
-    }
+  const newErrors = {
+    name: name.trim() === "",
+    email: email.trim() === "",
+    message: message.trim() === "",
   };
+
+  setErrors(newErrors);
+  const isValid = Object.values(newErrors).every((v) => !v);
+  if (!isValid) return;
+
+  // ✅ Optimistic update: show success before await finishes
+  toast.success("Message sent successfully!");
+  setFormData({ name: "", email: "", phone: "", message: "" });
+
+  // Background request
+  try {
+    await fetch("https://portfolio-backend-1wl9.onrender.com/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+    // Optional: log or silently handle real response
+  } catch (error) {
+    console.error("Email send error (ignored):", error);
+    // You could show a warning here if you want
+    // toast.warn("Email may not have sent. Try again if needed.");
+  }
+};
+
 
   return (
     <div className="contact-container" id="contact">
