@@ -36,7 +36,7 @@ function Timeline() {
           {/* Job: Divami Design Labs */}
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            date="Jan 2022 – Jul 2023"
+            date="Jan 2021 – Jul 2023"
             iconStyle={{ background: '#5000ca', color: 'rgb(39, 40, 34)' }}
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
@@ -49,9 +49,9 @@ function Timeline() {
           </VerticalTimelineElement>
 
           {/* Education: Masters */}
-          <VerticalTimelineElement
+          <VerticalTimelineElement        
             className="vertical-timeline-element--education"
-            date="Aug 2023 – May 2025 (Expected)"
+            date="Masters Degree"
             iconStyle={{ background: '#0077b6', color: '#fff' }}
             icon={<FontAwesomeIcon icon={faGraduationCap} />}
           >
@@ -65,12 +65,12 @@ function Timeline() {
           {/* Education: Bachelors */}
           <VerticalTimelineElement
             className="vertical-timeline-element--education"
-            date="2015 – 2019"
+            date="Bachelor's Degree"
             iconStyle={{ background: '#0077b6', color: '#fff' }}
             icon={<FontAwesomeIcon icon={faGraduationCap} />}
           >
             <h3 className="vertical-timeline-element-title">Bachelor of Technology – Computer Science</h3>
-            <h4 className="vertical-timeline-element-subtitle">Lakireddy Balireddy College of Engineering – AP, India</h4>
+            <h4 className="vertical-timeline-element-subtitle">LBRCE – AP, India</h4>
             <p>
               Studied Programming Fundamentals, Operating Systems, DBMS, and Software Engineering. Participated in coding contests and academic projects.
             </p>

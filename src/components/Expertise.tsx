@@ -4,6 +4,8 @@ import {
   faReact,
   faDocker,
   faPython,
+  faNodeJs,
+  faAngular,
 } from "@fortawesome/free-brands-svg-icons";
 import Chip from "@mui/material/Chip";
 import "../assets/styles/Expertise.scss";
@@ -23,6 +25,17 @@ const labelsFirst = [
   "React Testing Library",
 ];
 
+const labelsAngular = [
+  "Angular 12+",
+  "RxJS",
+  "Angular CLI",
+  "NgRx (Basic)",
+  "TypeScript",
+  "HTML & SCSS",
+  "Angular Material",
+  "Component-based Architecture",
+];
+
 const labelsSecond = [
   "Git",
   "GitHub Actions",
@@ -31,23 +44,35 @@ const labelsSecond = [
   "Netlify",
   "Docker",
   "Azure",
-  "CI/CD",
+  "AWS (S3, EC2)",
+  "CI/CD Pipelines",
+  "Version Control",
   "Jira",
   "Confluence",
 ];
 
 const labelsThird = [
-    "OpenAI (ChatGPT API)",
-    "LangChain (Basic)",
-    "Qdrant",
-    "Vector Embeddings",
-    "Streamlit (UI prototyping)",
-    "Python",
-    "FastAPI (basic)",
-    "REST APIs",
-    "JSON"
+  "OpenAI (ChatGPT API)",
+  "LangChain (Basic)",
+  "Qdrant",
+  "Vector Embeddings",
+  "Streamlit (UI prototyping)",
+  "Python",
+  "FastAPI (basic)",
+  "REST APIs",
+  "JSON"
 ];
 
+const labelsFourth = [
+  "Node.js",
+  "Express.js",
+  "MongoDB (basic)",
+  "JWT (basic auth)",
+  "API Integration",
+  "Nodemon",
+  "Postman",
+  "RESTful Services",
+];
 
 function Expertise() {
   return (
@@ -55,7 +80,7 @@ function Expertise() {
       <div className="skills-container">
         <h1>Expertise</h1>
         <div className="skills-grid">
-          {/* Frontend Engineering */}
+          {/* Frontend Engineering - React */}
           <div className="skill">
             <FontAwesomeIcon icon={faReact} size="3x" />
             <h3>Frontend Engineering (React & UI/UX)</h3>
@@ -68,6 +93,21 @@ function Expertise() {
             <div className="flex-chips">
               <span className="chip-title">Tech stack:</span>
               {labelsFirst.map((label, index) => (
+                <Chip key={index} className="chip" label={label} />
+              ))}
+            </div>
+          </div>
+
+          {/* Frontend Engineering - Angular */}
+          <div className="skill">
+            <FontAwesomeIcon icon={faAngular} size="3x" />
+            <h3>Frontend Engineering (Angular)</h3>
+            <p>
+              I also build dynamic, modular applications using Angular. With a solid understanding of Angular CLI, RxJS, Angular Material, and component-driven architecture, I can deliver highly maintainable codebases and clean UI flows.
+            </p>
+            <div className="flex-chips">
+              <span className="chip-title">Tech stack:</span>
+              {labelsAngular.map((label, index) => (
                 <Chip key={index} className="chip" label={label} />
               ))}
             </div>
@@ -109,6 +149,25 @@ function Expertise() {
               ))}
             </div>
           </div>
+
+          {/* Backend Development (Basic) */}
+          <div className="skill">
+            <FontAwesomeIcon icon={faNodeJs} size="3x" />
+            <h3>Backend Development (Basic)</h3>
+            <p>
+              I have working knowledge of backend development using Node.js and
+              Express for building RESTful APIs and integrating MongoDB for simple
+              data operations. I use Postman for testing and understand API auth
+              and middleware concepts. Enough to build and connect full-stack apps.
+            </p>
+            <div className="flex-chips">
+              <span className="chip-title">Tech stack:</span>
+              {labelsFourth.map((label, index) => (
+                <Chip key={index} className="chip" label={label} />
+              ))}
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
