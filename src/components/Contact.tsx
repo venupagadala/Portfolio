@@ -4,6 +4,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Expertise.scss";
 
+// ✅ Email RegEx validation
+const isValidEmail = (email: string): boolean => {
+  const regex = /^[\w.-]+@[a-zA-Z\d-]+\.[a-zA-Z]{2,4}$/;
+  return regex.test(email) && email.endsWith(".com");
+};
+
 function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -16,6 +22,7 @@ function Contact() {
     name: false,
     email: false,
     message: false,
+    phone: false,
   });
 
   const handleChange = (
@@ -28,40 +35,35 @@ function Contact() {
     }
   };
 
- const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const { name, email, message } = formData;
+    const { name, email, message, phone } = formData;
 
-  const newErrors = {
-    name: name.trim() === "",
-    email: email.trim() === "",
-    message: message.trim() === "",
+    const newErrors = {
+      name: name.trim() === "",
+      email: !isValidEmail(email),
+      message: message.trim() === "",
+      phone: phone ? !/^\d{10}$/.test(phone) : false, // ✅ Must be 10 digits if provided
+    };
+
+    setErrors(newErrors);
+    const isValid = Object.values(newErrors).every((v) => !v);
+    if (!isValid) return;
+
+    toast.success("Message sent successfully!");
+    setFormData({ name: "", email: "", phone: "", message: "" });
+
+    try {
+      await fetch("https://portfolio-backend-1wl9.onrender.com/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+    } catch (error) {
+      console.error("Email send error (ignored):", error);
+    }
   };
-
-  setErrors(newErrors);
-  const isValid = Object.values(newErrors).every((v) => !v);
-  if (!isValid) return;
-
-  // ✅ Optimistic update: show success before await finishes
-  toast.success("Message sent successfully!");
-  setFormData({ name: "", email: "", phone: "", message: "" });
-
-  // Background request
-  try {
-    await fetch("https://portfolio-backend-1wl9.onrender.com/send", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-    // Optional: log or silently handle real response
-  } catch (error) {
-    console.error("Email send error (ignored):", error);
-    // You could show a warning here if you want
-    // toast.warn("Email may not have sent. Try again if needed.");
-  }
-};
-
 
   return (
     <div className="contact-container" id="contact">
@@ -80,7 +82,14 @@ function Contact() {
                 name={field}
                 value={formData[field as "name" | "email" | "phone"]}
                 onChange={handleChange}
-                className={errors[field as "name" | "email"] ? "error" : ""}
+                onInput={
+                  field === "phone"
+                    ? (e) =>
+                        ((e.target as HTMLInputElement).value =
+                          e.currentTarget.value.replace(/\D/g, ""))
+                    : undefined
+                }
+                className={errors[field as "name" | "email" | "phone"] ? "error" : ""}
                 required={field !== "phone"}
               />
               <label
@@ -94,8 +103,15 @@ function Contact() {
                   ? "Email"
                   : "Phone (optional)"}
               </label>
-              {errors[field as "name" | "email"] && (
-                <span className="error-text">Please enter {field}</span>
+
+              {errors[field as "name" | "email" | "phone"] && (
+                <span className="error-text">
+                  {field === "email"
+                    ? "Please enter a valid .com email address"
+                    : field === "phone"
+                    ? "Phone number must be 10 digits"
+                    : `Please enter ${field}`}
+                </span>
               )}
             </div>
           ))}
