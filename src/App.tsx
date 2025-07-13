@@ -33,7 +33,7 @@ function App() {
             <Main/>
             <Expertise/>
             <Timeline/>
-            {/* <Project/> */}
+            <Project/>
             <Contact/>
         </FadeIn>
         <Footer />

@@ -132,7 +132,20 @@ function Contact() {
           )}
         </div>
 
-        <button type="submit">Send Message</button>
+        <button
+  type="submit"
+  disabled={
+    !!(
+      !formData.name.trim() ||
+      !isValidEmail(formData.email) ||
+      !formData.message.trim() ||
+      (formData.phone && !/^\d{10}$/.test(formData.phone))
+    )
+  }
+>
+  Send Message
+</button>
+
       </form>
 
       <ToastContainer

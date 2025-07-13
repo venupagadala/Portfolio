@@ -1,26 +1,29 @@
 .contact-container {
-  max-width: 1054px;
-  margin: 2rem auto;
-  padding: 1.5rem;
+  padding: 30px 147px;
+  display: flex;
+  flex-direction: column;
+  align-items: start; // center horizontally without margin auto
   font-family: 'Segoe UI', sans-serif;
 }
 
 .contact-container h1 {
   font-size: 2rem;
   margin-bottom: 0.5rem;
+  text-align: center;
 }
 
 .contact-container p {
   font-size: 1rem;
   margin-bottom: 1.5rem;
   font-weight: 600;
-
+  text-align: center;
 }
 
 .contact-form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
 }
 
 .form-row {
@@ -52,7 +55,6 @@
   position: absolute;
   left: 0.75rem;
   top: 1rem;
-//   background: white;
   color: #888;
   font-size: 1rem;
   pointer-events: none;
@@ -66,9 +68,9 @@
   top: -0.6rem;
   left: 0.6rem;
   font-size: 0.8rem;
-  background-color: WHITE;
+  background-color: white;
   border: 2px solid rgb(57, 95, 164);
-  border-radius: 15PX;
+  border-radius: 15px;
   color: green;
   font-weight: 700;
 }
@@ -76,7 +78,6 @@
 .floating-label input.error,
 .floating-label textarea.error {
   border-color: #e63946;
-//   background-color: #fff0f0;
 }
 
 .error-text {
@@ -95,28 +96,62 @@ button {
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.3s ease;
+  position: relative; // Needed for tooltip positioning
+
+  &:hover {
+    background-color: #37009c;
+  }
+
+  &:disabled {
+    opacity: 1; /* keep full opacity */
+    background-color: #5000ca; /* same purple */
+    cursor: not-allowed; /* crossed circle */
+    pointer-events: all; /* allow hover for tooltip */
+  }
+
+  &:disabled:hover::after {
+    content: "Complete all fields";
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #6b4cff, #9a77ff);
+    color: #fff;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(107, 76, 255, 0.5);
+    white-space: nowrap;
+    z-index: 9999;
+    pointer-events: none;
+    user-select: none;
+
+    /* Smooth fade in */
+    opacity: 0;
+    animation: fadeInTooltip 0.3s forwards;
+  }
 }
 
-button:hover {
-  background-color: #37009c;
+@keyframes fadeInTooltip {
+  to {
+    opacity: 1;
+  }
 }
 
 
-/* Reduce opacity for success toasts */
 .Toastify__toast--success {
-  opacity: 0.85; /* Adjust to your liking */
-  transition: opacity 0.3s ease-in-out;
-}
-
-/* Optional: Change background and text for even more control */
-.Toastify__toast--success {
-  background-color: rgba(72, 187, 120, 0.85); /* Slightly transparent green */
+  opacity: 0.85;
+  background-color: rgba(72, 187, 120, 0.85);
   color: white;
 }
-
 
 @media (max-width: 600px) {
   .form-row {
     flex-direction: column;
+  }
+
+  .contact-container {
+    padding: 30px 20px;
   }
 }
