@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./contact.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./Expertise.scss";
 
 // ✅ Email RegEx validation
 const isValidEmail = (email: string): boolean => {
