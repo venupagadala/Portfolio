@@ -102,11 +102,3 @@ The contact form uses a Node.js/Express backend with Nodemailer to handle messag
 - Icons from [React Icons](https://react-icons.github.io/react-icons/)
 ```
 
-Key improvements:
-1. Added the folder structure section right after features
-2. Used clear ASCII tree diagram with brief descriptions
-3. Maintained consistent styling with the rest of the document
-4. Kept all the existing sections intact
-5. The structure highlights the organized nature of your project
-
-The folder structure section helps potential contributors or employers quickly understand your project organization, which is especially valuable for a portfolio that demonstrates your coding standards and architecture skills.
