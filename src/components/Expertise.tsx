@@ -47,7 +47,7 @@ const labelsSecond = [
   "Netlify",
   "Docker",
   "Azure",
-  "AWS (S3, EC2)",
+  "AWS (S3, EC2, RDS)",
   "CI/CD Pipelines",
   "Version Control",
   "Jira",
