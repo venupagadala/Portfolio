@@ -23,7 +23,7 @@ function Timeline() {
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
             <h3 className="vertical-timeline-element-title">Software Engineer – Frontend</h3>
-            <h4 className="vertical-timeline-element-subtitle">PNC Financial Services – USA</h4>
+            <h4 className="vertical-timeline-element-subtitle">AT&T Services Inc – USA</h4>
             <p>
               Engineered responsive, WCAG-compliant dashboards using React.js, Next.js, and Tailwind CSS.
               Implemented Redux, React Router, and React Query to improve navigation and data performance.
@@ -31,7 +31,7 @@ function Timeline() {
             </p>
           </VerticalTimelineElement>
 
-          {/* Job: BrownFrame Technologies */}
+          {/* Job: Divami Design Labs */}
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
             date="Aug 2021 – Jul 2023"
@@ -39,7 +39,7 @@ function Timeline() {
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
             <h3 className="vertical-timeline-element-title">Software Engineer – Frontend</h3>
-            <h4 className="vertical-timeline-element-subtitle">BrownFrame Technologies – India</h4>
+            <h4 className="vertical-timeline-element-subtitle">Divami Design Labs – India</h4>
             <p>
               Developed scalable web apps using React.js and TypeScript with Bootstrap 5 and Material UI.
               Improved UI rendering with lazy loading, useMemo, and debounce.
