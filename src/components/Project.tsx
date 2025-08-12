@@ -73,7 +73,7 @@ function Projects() {
     <div id="projects" className="projects-container">
       <h1>Projects</h1>
       <p>
-  A glimpse into the projects I’ve built — combining creativity, clean code, and modern web technologies.
+  A glimpse into the projects I’ve built, combining creativity, clean code, and modern web technologies.
 </p>
 
 

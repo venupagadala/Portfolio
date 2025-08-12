@@ -10,7 +10,7 @@ import {
   faAngular,
 } from "@fortawesome/free-brands-svg-icons";
 import Chip from "@mui/material/Chip";
-import "../assets/styles/Expertise.scss"; // Your styles
+import "../assets/styles/Expertise.scss"; 
 
 // Tech stack arrays
 const labelsFirst = [
@@ -112,10 +112,10 @@ function Expertise() {
           {/* React */}
           <motion.div className="skill" variants={itemVariants}>
             <FontAwesomeIcon icon={faReact} size="3x" />
-            <h3>Frontend Engineering (React & UI/UX)</h3>
+            <h3>Frontend Engineering (React & Next.js)</h3>
             <p>
               Specializing in scalable and high-performance applications using
-              React.js, focusing on responsiveness, accessibility, and pixel-perfect UIs.
+              React.js, Next.js, focusing on responsiveness, accessibility, and pixel-perfect UIs.
             </p>
             <div className="flex-chips">
               <span className="chip-title">Tech stack:</span>
@@ -176,7 +176,7 @@ function Expertise() {
           {/* Backend */}
           <motion.div className="skill" variants={itemVariants}>
             <FontAwesomeIcon icon={faNodeJs} size="3x" />
-            <h3>Backend Development (Basic)</h3>
+            <h3>Backend Development</h3>
             <p>
               Using Node.js, Express, and MongoDB to build REST APIs and
               integrate with frontend apps. Basic auth, token handling, and API testing.
