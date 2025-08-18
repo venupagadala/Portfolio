@@ -18,36 +18,80 @@ function Contact() {
   });
 
   const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const [touched, setTouched] = useState({
     name: false,
     email: false,
-    message: false,
     phone: false,
+    message: false,
   });
+
+  // ✅ Validation function
+  const validateField = (name: string, value: string): string => {
+    switch (name) {
+      case "name":
+        return value.trim() ? "" : "Please enter your name";
+      case "email":
+        return isValidEmail(value) ? "" : "Enter a valid .com email";
+      case "phone":
+        return value && !/^\d{10}$/.test(value)
+          ? "Phone number must be 10 digits"
+          : "";
+      case "message":
+        return value.trim() ? "" : "Please enter a message";
+      default:
+        return "";
+    }
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    if (name in errors) {
-      setErrors((prev) => ({ ...prev, [name]: false }));
+
+    // Clear error while typing if already touched
+    if (touched[name as keyof typeof touched]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: validateField(name, value),
+      }));
     }
+  };
+
+  const handleBlur = (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+    setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const { name, email, message, phone } = formData;
-
+    // Validate all fields before submission
     const newErrors = {
-      name: name.trim() === "",
-      email: !isValidEmail(email),
-      message: message.trim() === "",
-      phone: phone ? !/^\d{10}$/.test(phone) : false, // ✅ Must be 10 digits if provided
+      name: validateField("name", formData.name),
+      email: validateField("email", formData.email),
+      phone: validateField("phone", formData.phone),
+      message: validateField("message", formData.message),
     };
 
     setErrors(newErrors);
-    const isValid = Object.values(newErrors).every((v) => !v);
+    setTouched({
+      name: true,
+      email: true,
+      phone: true,
+      message: true,
+    });
+
+    const isValid = Object.values(newErrors).every((err) => err === "");
     if (!isValid) return;
 
     toast.success("Message sent successfully!");
@@ -64,6 +108,12 @@ function Contact() {
     }
   };
 
+  const isFormValid =
+    formData.name.trim() &&
+    isValidEmail(formData.email) &&
+    formData.message.trim() &&
+    (!formData.phone || /^\d{10}$/.test(formData.phone));
+
   return (
     <div className="contact-container" id="contact">
       <h1>Contact Me</h1>
@@ -77,10 +127,11 @@ function Contact() {
           {["name", "email", "phone"].map((field) => (
             <div key={field} className="floating-label">
               <input
-                type="text"
+                type={field === "email" ? "email" : "text"}
                 name={field}
-                value={formData[field as "name" | "email" | "phone"]}
+                value={formData[field as keyof typeof formData]}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 onInput={
                   field === "phone"
                     ? (e) =>
@@ -88,12 +139,12 @@ function Contact() {
                           e.currentTarget.value.replace(/\D/g, ""))
                     : undefined
                 }
-                className={errors[field as "name" | "email" | "phone"] ? "error" : ""}
+                className={errors[field as keyof typeof errors] ? "error" : ""}
                 required={field !== "phone"}
               />
               <label
                 className={
-                  formData[field as "name" | "email" | "phone"] ? "active" : ""
+                  formData[field as keyof typeof formData] ? "active" : ""
                 }
               >
                 {field === "name"
@@ -103,15 +154,12 @@ function Contact() {
                   : "Phone (optional)"}
               </label>
 
-              {errors[field as "name" | "email" | "phone"] && (
-                <span className="error-text">
-                  {field === "email"
-                    ? "Please enter a valid .com email address"
-                    : field === "phone"
-                    ? "Phone number must be 10 digits"
-                    : `Please enter ${field}`}
-                </span>
-              )}
+              {touched[field as keyof typeof touched] &&
+                errors[field as keyof typeof errors] && (
+                  <span className="error-text">
+                    {errors[field as keyof typeof errors]}
+                  </span>
+                )}
             </div>
           ))}
         </div>
@@ -121,30 +169,20 @@ function Contact() {
             name="message"
             value={formData.message}
             onChange={handleChange}
+            onBlur={handleBlur}
             className={errors.message ? "error" : ""}
             rows={6}
             required
           />
           <label className={formData.message ? "active" : ""}>Message</label>
-          {errors.message && (
-            <span className="error-text">Please enter a message</span>
+          {touched.message && errors.message && (
+            <span className="error-text">{errors.message}</span>
           )}
         </div>
 
-        <button
-  type="submit"
-  disabled={
-    !!(
-      !formData.name.trim() ||
-      !isValidEmail(formData.email) ||
-      !formData.message.trim() ||
-      (formData.phone && !/^\d{10}$/.test(formData.phone))
-    )
-  }
->
-  Send Message
-</button>
-
+        <button type="submit" disabled={!isFormValid}>
+          Send Message
+        </button>
       </form>
 
       <ToastContainer
