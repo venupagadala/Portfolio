@@ -31,7 +31,7 @@ function Timeline() {
             </p>
           </VerticalTimelineElement>
 
-          {/* Job: Zensar Technologies, India  */}
+          {/* Job: Zensar Technologies- India  */}
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
             date="Aug 2021 – Jul 2023"
