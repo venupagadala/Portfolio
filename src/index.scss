@@ -157,4 +157,55 @@ p, a, h1, h2, h3, h4, h5, label, button {
 }
 
 
+//last added
 
+.navbar-fixed-top { background: transparent; }
+
+/* Skip link for keyboard users */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: #111827;
+  color: #fff;
+  padding: .5rem .75rem;
+  border-radius: .5rem;
+  z-index: 10000;
+}
+.skip-link:focus {
+  left: .75rem;
+  top: .75rem;
+}
+
+/* Optional: active button underline (desktop) */
+@media (min-width: 600px) {
+  .navigation-bar button[aria-current="page"] {
+    position: relative;
+  }
+  .navigation-bar button[aria-current="page"]::after {
+    content: "";
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    bottom: 6px;
+    height: 2px;
+    background: currentColor;
+    opacity: .7;
+    border-radius: 2px;
+  }
+}
+
+
+
+/* keyboard accessibility */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: #111827;
+  color: #fff;
+  padding: .5rem .75rem;
+  border-radius: .5rem;
+  z-index: 10000;
+}
+.skip-link:focus { left: .75rem; top: .75rem; }

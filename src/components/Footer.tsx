@@ -19,7 +19,7 @@ function Footer() {
         </a>
       </div>
       <p>
-  Thank you for visiting! <strong>Designed and developed by Venu Gopal Reddy Pagadala</strong> — passionate about clean code and elegant UI. Have a great day!</p>
+  Thank you for visiting! <strong>Designed and developed by Venu Gopal Reddy Pagadala</strong>, passionate about clean code and elegant UI. Have a great day!</p>
 
     </footer>
   );
