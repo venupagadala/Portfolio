@@ -33,7 +33,7 @@ function Main() {
             </a>
           </div>
           <h1>Venu Pagadala</h1>
-          <h2 className="job-title">Software Developer</h2>
+          <h2 className="job-title">Software Engineer</h2>
 
           <div className="mobile_social_icons">
             <a
