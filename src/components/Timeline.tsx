@@ -23,7 +23,7 @@ function Timeline() {
             aria-label="PNC Financial Services work experience"
           >
             <h3 className="vertical-timeline-element-title">Software Developer</h3>
-            <h4 className="vertical-timeline-element-subtitle">PNC Financial Services, USA</h4>
+            {/* <h4 className="vertical-timeline-element-subtitle">PNC Financial Services, USA</h4> */}
             <ul className="timeline-points">
               <li>
                 Built <strong>responsive, WCAG-compliant</strong> dashboards using React.js, Next.js, Tailwind CSS and boosting mobile engagement by <strong>15%</strong>.
@@ -54,7 +54,7 @@ function Timeline() {
             aria-label="Zensar Technologies work experience"
           >
             <h3 className="vertical-timeline-element-title">Software Developer</h3>
-            <h4 className="vertical-timeline-element-subtitle">Zensar Technologies, India</h4>
+            {/* <h4 className="vertical-timeline-element-subtitle">Zensar Technologies, India</h4> */}
             <ul className="timeline-points">
               <li>
                 Developed scalable web apps using <strong>React.js + TypeScript</strong> with Bootstrap 5 and Material UI.

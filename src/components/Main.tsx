@@ -1,7 +1,7 @@
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import "../assets/styles/Main.scss";
-import profilePic from "./../assets/images/profile.jpeg";
+import profilePic from "./../assets/images/dp.png";
 import EmailIcon from "@mui/icons-material/Email"; // Add this import
 import "./Main.scss";
 
