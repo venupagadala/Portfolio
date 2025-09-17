@@ -257,16 +257,6 @@ function Expertise() {
             </div>
           </motion.div>
         </motion.div>
-
-        {/* Optional: resume-aligned outcome badges */}
-        <motion.div className="metrics" variants={itemVariants}>
-          <ul>
-            <li>↓ 40% initial load time (Next.js SSR/SSG)</li>
-            <li>↑ 15% mobile engagement (accessibility & UX)</li>
-            <li>↑ 30% delivery speed (reusable components)</li>
-            <li>95%+ test coverage on critical flows</li>
-          </ul>
-        </motion.div>
       </motion.div>
     </div>
   );

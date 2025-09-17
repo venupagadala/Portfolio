@@ -12,7 +12,7 @@ import FadeIn from './components/FadeIn';
 import './index.scss';
 
 function App() {
-    const [mode, setMode] = useState<'light' | 'dark'>('dark');
+    const [mode, setMode] = useState<'light' | 'dark'>('light');
 
     const handleModeChange = () => {
         if (mode === 'dark') {

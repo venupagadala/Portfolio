@@ -22,7 +22,7 @@ function Main() {
               <GitHubIcon />
             </a>
             <a
-              href="https://www.linkedin.com/in/venu-pagadala-77ab3a251/"
+              href="https://www.linkedin.com/in/venu-gopalreddy-01068823a/"
               target="_blank"
               rel="noreferrer"
             >
@@ -44,7 +44,7 @@ function Main() {
               <GitHubIcon />
             </a>
             <a
-              href="https://www.linkedin.com/in/venu-pagadala-77ab3a251/"
+              href="https://www.linkedin.com/in/venu-gopalreddy-01068823a/"
               target="_blank"
               rel="noreferrer"
             >

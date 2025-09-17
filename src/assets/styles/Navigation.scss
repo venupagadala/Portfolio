@@ -1,0 +1,125 @@
+.navbar-fixed-top {
+  transition: all 0.3s ease;
+
+  &.light-mode {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  &.dark-mode {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  &.scrolled {
+    &.light-mode {
+      background-color: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    &.dark-mode {
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+  }
+}
+
+.drawer-light {
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-right: 1px solid rgba(0, 0, 0, 0.18);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.drawer-dark {
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.navigation-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+.navigation-bar-responsive {
+  padding: 1rem;
+
+  &.light-mode {
+    color: rgb(39, 40, 34);
+  }
+
+  &.dark-mode {
+    color: #fff;
+  }
+}
+
+.mobile-menu-top {
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.divider-light {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.divider-dark {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.list-item-button-light {
+  color: rgb(39, 40, 34);
+}
+
+.list-item-button-dark {
+  color: #fff;
+}
+
+.icon-button-light {
+  color: rgb(39, 40, 34);
+}
+
+.icon-button-dark {
+  color: #fff;
+}
+
+.theme-icon-light {
+  color: rgb(39, 40, 34);
+  cursor: pointer;
+}
+
+.theme-icon-dark {
+  color: #fff;
+  cursor: pointer;
+}
+
+.nav-button-light {
+  color: rgb(39, 40, 34);
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+.nav-button-dark {
+  color: #fff;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}

@@ -22,24 +22,13 @@ function Timeline() {
             icon={<FontAwesomeIcon icon={faBriefcase} aria-hidden="true" />}
             aria-label="PNC Financial Services work experience"
           >
-            <h3 className="vertical-timeline-element-title">Software Developer</h3>
-            {/* <h4 className="vertical-timeline-element-subtitle">PNC Financial Services, USA</h4> */}
+            <h3 className="vertical-timeline-element-title">Software Engineer</h3>
             <ul className="timeline-points">
-              <li>
-                Built <strong>responsive, WCAG-compliant</strong> dashboards using React.js, Next.js, Tailwind CSS and boosting mobile engagement by <strong>15%</strong>.
-              </li>
-              <li>
-                Implemented <strong>SSR/SSG</strong> with Next.js, reducing initial load times by <strong>40%</strong> and improving SEO.
-              </li>
-              <li>
-                Optimized dynamic data handling with <strong>React Query</strong>, cutting redundant API calls and improving load times by <strong>30%</strong>.
-              </li>
-              <li>
-                Delivered CI/CD pipelines with <strong>GitHub Actions</strong> → <strong>AWS Amplify</strong>, reducing deployment time from hours to under 10 minutes.
-              </li>
-              <li>
-                Strengthened quality with <strong>Jest/RTL</strong> tests, achieving ~<strong>95%</strong> coverage across critical flows.
-              </li>
+              <li>Designed and built responsive online banking dashboards with React and Tailwind CSS.</li>
+              <li>Introduced SSR and SSG in Next.js to improve SEO and reduce load times.</li>
+              <li>Developed backend services using Java and Spring Boot to improve transaction efficiency.</li>
+              <li>Deployed applications on AWS with GitHub Actions pipelines for faster releases.</li>
+              <li>Implemented observability with the ELK Stack and built real-time pipelines with Kafka and PostgreSQL.</li>
             </ul>
           </VerticalTimelineElement>
 
@@ -48,29 +37,18 @@ function Timeline() {
             className="vertical-timeline-element--work"
             contentStyle={{ background: "#ffffff", color: "rgb(39, 40, 34)" }}
             contentArrowStyle={{ borderRight: "7px solid #ffffff" }}
-            date="Aug 2021 – Jul 2023"
+            date="Jul 2021 – Jul 2023"
             iconStyle={{ background: "#5000ca", color: "#fff" }}
             icon={<FontAwesomeIcon icon={faBriefcase} aria-hidden="true" />}
             aria-label="Zensar Technologies work experience"
           >
-            <h3 className="vertical-timeline-element-title">Software Developer</h3>
-            {/* <h4 className="vertical-timeline-element-subtitle">Zensar Technologies, India</h4> */}
+            <h3 className="vertical-timeline-element-title">Software Engineer</h3>
             <ul className="timeline-points">
-              <li>
-                Developed scalable web apps using <strong>React.js + TypeScript</strong> with Bootstrap 5 and Material UI.
-              </li>
-              <li>
-                Enhanced rendering with <strong>lazy loading, useMemo, debounce</strong>, and delivered apps scoring <strong>95+ Lighthouse</strong>.
-              </li>
-              <li>
-                Contributed to design systems and <strong>cross-browser/device testing</strong>, cutting UI defects by <strong>45%</strong>.
-              </li>
-              <li>
-                Integrated secure <strong>REST APIs</strong> with Axios (retry logic & error boundaries), reducing UI crashes by <strong>45%</strong>.
-              </li>
-              <li>
-                Deployed builds via <strong>Netlify + Webpack</strong> with automated pipelines for faster iterations.
-              </li>
+              <li>Developed enterprise web applications with React, Angular, and TypeScript for banking and insurance clients.</li>
+              <li>Built Spring Boot services integrated with third-party APIs to improve performance and reduce latency.</li>
+              <li>Implemented cross-browser testing workflows that reduced UI defects and improved reliability.</li>
+              <li>Optimized Core Web Vitals and caching strategies with Redis and CDNs for faster applications.</li>
+              <li>Automated CI/CD pipelines with Jenkins and Docker to deliver faster, more reliable releases.</li>
             </ul>
           </VerticalTimelineElement>
 
@@ -84,18 +62,14 @@ function Timeline() {
             icon={<FontAwesomeIcon icon={faGraduationCap} aria-hidden="true" />}
             aria-label="Master of Science in Computer Science"
           >
-            <h3 className="vertical-timeline-element-title">Master's in Computer Science</h3>
+            <h3 className="vertical-timeline-element-title">Master of Science in Computer Science</h3>
             <h4 className="vertical-timeline-element-subtitle">Kennesaw State University — Georgia, USA</h4>
             <ul className="timeline-points">
-              <li>
-                Focused on <strong>software engineering, algorithms, and system design</strong>.
-              </li>
-              <li>
-                Built full-stack projects with <strong>React, Next.js, Node.js, and Python</strong>.
-              </li>
-              <li>
-                Explored backend frameworks like <strong>Flask</strong> and enterprise-level concepts in <strong>Java</strong>.
-              </li>
+              <li>Studied advanced topics in software engineering, algorithms, and system design.</li>
+              <li>Built full-stack projects with React, Next.js, Node.js, and Python.</li>
+              <li>Worked with backend frameworks like Flask and enterprise Java systems.</li>
+              <li>Focused on applying theory to practical full-stack solutions.</li>
+              <li>Prepared for professional roles through research and project work.</li>
             </ul>
           </VerticalTimelineElement>
 
@@ -109,18 +83,14 @@ function Timeline() {
             icon={<FontAwesomeIcon icon={faGraduationCap} aria-hidden="true" />}
             aria-label="Bachelor of Technology in Computer Science and Engineering"
           >
-            <h3 className="vertical-timeline-element-title">B.Tech in Computer Science & Engineering</h3>
+            <h3 className="vertical-timeline-element-title">Bachelor of Technology in Computer Science & Engineering</h3>
             <h4 className="vertical-timeline-element-subtitle">Lakireddy Balireddy College of Engineering, India</h4>
             <ul className="timeline-points">
-              <li>
-                Studied <strong>core CS subjects</strong>: Data Structures, DBMS, OS, Networks, and Web Development.
-              </li>
-              <li>
-                Gained practical exposure to <strong>Java</strong> and <strong>Python</strong> programming with project work.
-              </li>
-              <li>
-                Completed academic projects in <strong>full-stack web development</strong> and participated in coding contests.
-              </li>
+              <li>Completed coursework in core CS areas including data structures, databases, OS, and networks.</li>
+              <li>Gained hands-on programming experience in Java and Python.</li>
+              <li>Worked on academic projects in full-stack web development.</li>
+              <li>Participated in coding contests and technical events to apply skills.</li>
+              <li>Graduated with strong foundations in software engineering concepts.</li>
             </ul>
           </VerticalTimelineElement>
         </VerticalTimeline>
