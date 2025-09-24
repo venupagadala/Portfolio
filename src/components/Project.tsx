@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useInView } from "react-intersection-observer"; // For viewport animations
-import { motion, Variants, Transition } from "framer-motion"; // For animations, import Variants and Transition
+import { useInView } from "react-intersection-observer";
+import { motion, Variants, Transition } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
-import "../assets/styles/Project.scss"; // Your styles
+import "../assets/styles/Project.scss";
 
 type Repo = {
   id: number;
@@ -45,7 +45,6 @@ function Projects() {
     fetchRepos();
   }, []);
 
-  // Explicitly type containerVariants as Variants
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -54,7 +53,6 @@ function Projects() {
     },
   };
 
-  // Explicitly type itemVariants as Variants
   const itemVariants: Variants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
@@ -62,65 +60,71 @@ function Projects() {
       y: 0,
       transition: {
         duration: 0.5,
-        // FIX: Cast the cubic-bezier array to 'any' to satisfy TypeScript.
-        // This is a common workaround for this specific type error in framer-motion.
         ease: [0.42, 0, 0.58, 1] as any,
-      } as Transition, // Also cast the entire transition object to Transition
+      } as Transition,
     },
   };
 
   return (
-    <div id="projects" className="projects-container">
-      <h1>Projects</h1>
-      <p>
-  A glimpse into the projects I’ve built, combining creativity, clean code, and modern web technologies.
-</p>
-
+    <section id="projects" className="projects">
+      <header className="projects__header">
+        <h1 className="projects__title">Projects</h1>
+        <p className="projects__subtitle">
+          A glimpse into the projects I’ve built, combining creativity, clean
+          code, and modern web technologies.
+        </p>
+      </header>
 
       {loading ? (
-        <p>Loading projects...</p>
+        <p role="status" aria-live="polite">
+          Loading projects…
+        </p>
       ) : (
         <motion.div
           ref={projectsGridRef}
-          className="projects-grid"
+          className="projects__grid"
           variants={containerVariants}
           initial="hidden"
           animate={projectsGridInView ? "visible" : "hidden"}
         >
           {repos.map((repo) => (
-            <motion.div
-              className="project-card"
+            <motion.article
               key={repo.id}
+              className="project-card"
               variants={itemVariants}
+              aria-labelledby={`project-title-${repo.id}`}
             >
-              <div className="project-inner">
-                {/* Visible always */}
-                <div className="project-content">
-                  <h3 className="project-title">{repo.name}</h3>
-                  {/* <p className="project-description">{repo.description || "No description available."}</p> */}
-                  <p className="project-language">
+              <div className="project-card__inner">
+                <div className="project-card__content">
+                  <h2
+                    id={`project-title-${repo.id}`}
+                    className="project-card__title"
+                  >
+                    {repo.name}
+                  </h2>
+                  <p className="project-card__language">
                     {repo.language || "Unknown"}
                   </p>
                 </div>
 
-                {/* On hover */}
-                <div className="project-hover">
-                  <h2 className="project-hover-title">{repo.name}</h2>
+                <div className="project-card__hover">
+                  <h3 className="project-card__hover-title">{repo.name}</h3>
                   <a
                     href={repo.html_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="github-link"
+                    className="project-card__link"
+                    aria-label={`View ${repo.name} on GitHub`}
                   >
                     <FontAwesomeIcon icon={faGithub} size="lg" />
                   </a>
                 </div>
               </div>
-            </motion.div>
+            </motion.article>
           ))}
         </motion.div>
       )}
-    </div>
+    </section>
   );
 }
 

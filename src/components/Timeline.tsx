@@ -88,9 +88,6 @@ function Timeline() {
             <ul className="timeline-points">
               <li>Completed coursework in core CS areas including data structures, databases, OS, and networks.</li>
               <li>Gained hands-on programming experience in Java and Python.</li>
-              <li>Worked on academic projects in full-stack web development.</li>
-              <li>Participated in coding contests and technical events to apply skills.</li>
-              <li>Graduated with strong foundations in software engineering concepts.</li>
             </ul>
           </VerticalTimelineElement>
         </VerticalTimeline>

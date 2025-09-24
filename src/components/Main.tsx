@@ -1,16 +1,17 @@
+// Main.js
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import "../assets/styles/Main.scss";
 import profilePic from "./../assets/images/dp.png";
-import EmailIcon from "@mui/icons-material/Email"; // Add this import
-import "./Main.scss";
+import EmailIcon from "@mui/icons-material/Email";
 
 function Main() {
   return (
     <div className="container">
       <div className="about-section">
         <div className="image-wrapper">
-          <img src={profilePic} alt="Avatar" />
+          {/* ADDED: alt text for the profile picture */}
+          <img src={profilePic} alt="Venu Pagadala's profile avatar" />
         </div>
         <div className="content">
           <div className="social_icons">
@@ -18,18 +19,23 @@ function Main() {
               href="https://github.com/venupagadala"
               target="_blank"
               rel="noreferrer"
+              aria-label="GitHub Profile" // ADDED: aria-label
             >
-              <GitHubIcon />
+              <GitHubIcon aria-hidden="true" /> {/* ADDED: aria-hidden */}
             </a>
             <a
               href="https://www.linkedin.com/in/venu-gopalreddy-01068823a/"
               target="_blank"
               rel="noreferrer"
+              aria-label="LinkedIn Profile" // ADDED: aria-label
             >
-              <LinkedInIcon />
+              <LinkedInIcon aria-hidden="true" /> {/* ADDED: aria-hidden */}
             </a>
-            <a href="mailto:venupagadala13@gmail.com">
-              <EmailIcon />
+            <a 
+              href="mailto:venupagadala13@gmail.com"
+              aria-label="Email Venu" // ADDED: aria-label
+            >
+              <EmailIcon aria-hidden="true" /> {/* ADDED: aria-hidden */}
             </a>
           </div>
           <h1>Venu Pagadala</h1>
@@ -40,18 +46,23 @@ function Main() {
               href="https://github.com/venupagadala"
               target="_blank"
               rel="noreferrer"
+              aria-label="GitHub Profile" // ADDED: aria-label
             >
-              <GitHubIcon />
+              <GitHubIcon aria-hidden="true" /> {/* ADDED: aria-hidden */}
             </a>
             <a
               href="https://www.linkedin.com/in/venu-gopalreddy-01068823a/"
               target="_blank"
               rel="noreferrer"
+              aria-label="LinkedIn Profile" // ADDED: aria-label
             >
-              <LinkedInIcon />
+              <LinkedInIcon aria-hidden="true" /> {/* ADDED: aria-hidden */}
             </a>
-             <a href="mailto:venupagadala13@gmail.com">
-              <EmailIcon />
+             <a 
+              href="mailto:venupagadala13@gmail.com"
+              aria-label="Email Venu" // ADDED: aria-label
+            >
+              <EmailIcon aria-hidden="true" /> {/* ADDED: aria-hidden */}
             </a>
           </div>
         </div>

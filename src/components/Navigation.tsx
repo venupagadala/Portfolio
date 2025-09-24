@@ -6,7 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
+import IconButton from '@mui/material/IconButton'; // This is already imported
 import LightModeIcon from '@mui/icons-material/LightMode';
 import List from '@mui/material/List';
 import ListIcon from '@mui/icons-material/List';
@@ -88,11 +88,21 @@ function Navigation({parentToChild, modeChange}: any) {
           >
             <MenuIcon />
           </IconButton>
-          {mode === 'dark' ? (
-            <LightModeIcon onClick={() => modeChange()} className={`theme-icon-${mode}`} />
-          ) : (
-            <DarkModeIcon onClick={() => modeChange()} className={`theme-icon-${mode}`} />
-          )}
+          
+          {/* CORRECT IMPLEMENTATION FOR ACCESSIBILITY */}
+          <IconButton
+            color="inherit"
+            aria-label={mode === 'dark' ? 'toggle light mode' : 'toggle dark mode'}
+            onClick={() => modeChange()}
+            className={`theme-icon-${mode}`}
+          >
+            {mode === 'dark' ? (
+              <LightModeIcon />
+            ) : (
+              <DarkModeIcon />
+            )}
+          </IconButton>
+
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
               <Button 

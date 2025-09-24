@@ -19,112 +19,111 @@ import {
 import Chip from "@mui/material/Chip";
 import "../assets/styles/Expertise.scss";
 
-// ---- Tech stack arrays aligned to resume ----
+// ... (existing tech stack arrays and animation variants)
+
+// Define tech stack arrays for each skill section
 const labelsFrontend = [
-  "React.js",
-  "Next.js (SSR/SSG)",
+  "React",
+  "Next.js",
   "TypeScript",
-  "JavaScript (ES6+)",
-  "Zustand",
-  "Redux Toolkit",
-  "React Query",
-  "React Router",
-  "Tailwind CSS",
-  "SCSS",
+  "Redux",
+  "MUI",
+  "Styled Components",
   "Figma",
-  "Storybook",
 ];
 
 const labelsPerfA11y = [
+  "Lighthouse",
+  "WCAG",
+  "React Profiler",
   "Code Splitting",
   "Lazy Loading",
-  "useMemo",
-  "Debounce",
-  "Bundle Size Reduction",
-  "React Profiler",
-  "Lighthouse",
-  "WCAG 2.1",
-  "Semantic HTML",
-  "ARIA Roles",
-  "Keyboard Navigation",
 ];
 
 const labelsTestingQuality = [
   "Jest",
   "React Testing Library",
   "Cypress",
-  "Playwright",
-  "ESLint",
-  "Prettier",
-  "CI Checks",
-  "Integration Tests",
-  "E2E Flows",
+  "CI/CD",
 ];
 
 const labelsDevOps = [
-  "GitHub Actions",
+  "Docker",
   "AWS Amplify",
   "Netlify",
   "Vercel",
-  "Webpack",
-  "Vite",
-  "Docker",
-  "CI/CD Pipelines",
-  "Git",
-  "Jira",
-  "Confluence",
+  "GitHub Actions",
 ];
 
 const labelsAPIData = [
-  "RESTful APIs",
+  "REST",
   "Axios",
-  "Fetch",
+  "React Query",
+  "Caching",
   "Error Handling",
-  "Retry Logic",
-  "Caching (React Query)",
-  "JSON",
 ];
 
 const labelsBackendBasic = [
   "Node.js",
-  "Express.js",
-  "MongoDB (basic)",
-  "JWT (basic auth)",
-  "API Integration",
-  "Postman",
+  "Express",
+  "JWT",
+  "MongoDB",
 ];
 
 const labelsBackendExtended = [
-  "Java (Core)",
-  "Spring Boot (REST APIs)",
+  "Java",
+  "Spring Boot",
   "Python",
-  "Flask (APIs & microservices)",
-  "PostgreSQL / MySQL",
-  "MongoDB (basic)",
-  "JWT Authentication",
-  "API Design",
+  "Flask",
+  "PostgreSQL",
 ];
 
-// ---- Animations ----
+// Add containerVariants for parent animation
 const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 },
-  },
-};
-
-const itemVariants: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.42, 0, 0.58, 1] },
+    transition: {
+      staggerChildren: 0.15,
+      duration: 0.7,
+      ease: "easeOut",
+    },
+  },
+};
+
+// Animation variants for each skill item
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
   },
 };
 
 function Expertise() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
+
+  // Helper function for rendering Chips with improved accessibility
+  const renderChips = (labels: string[], chipTitle: string) => (
+    <div className="flex-chips">
+      <span className="chip-title">{chipTitle}:</span>
+      {labels.map((label, i) => (
+        <Chip
+          key={i}
+          className="chip"
+          label={label}
+          // Added for accessibility
+          role="listitem"
+          aria-label={`Skill: ${label}`}
+        />
+      ))}
+    </div>
+  );
 
   return (
     <div className="container" id="expertise">
@@ -135,113 +134,86 @@ function Expertise() {
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
       >
-        <h1>Expertise</h1>
+        {/* Changed h1 to h2 for correct semantic heading structure */}
+        <h2>Expertise</h2>
 
         <motion.div className="skills-grid">
           {/* Frontend (React & Next.js) */}
           <motion.div className="skill" variants={itemVariants}>
-            <FontAwesomeIcon icon={faReact} size="3x" />
+            {/* Added aria-hidden="true" to decorative icons */}
+            <FontAwesomeIcon icon={faReact} size="3x" aria-hidden="true" />
             <h3>Frontend Engineering (React & Next.js)</h3>
             <p>
               Building scalable, high-performance, and accessible UIs. Strong focus on
               SSR/SSG, reusable component libraries, and seamless Figma → code handoff.
             </p>
-            <div className="flex-chips">
-              <span className="chip-title">Tech stack:</span>
-              {labelsFrontend.map((label, i) => (
-                <Chip key={i} className="chip" label={label} />
-              ))}
-            </div>
+            {renderChips(labelsFrontend, "Tech stack")}
           </motion.div>
 
           {/* Performance & Accessibility */}
           <motion.div className="skill" variants={itemVariants}>
-            <FontAwesomeIcon icon={faGaugeHigh} size="3x" />
+            <FontAwesomeIcon icon={faGaugeHigh} size="3x" aria-hidden="true" />
             <h3>Performance & Accessibility</h3>
             <p>
               Optimizing first load and interaction with code splitting, caching, and
               profiling; delivering WCAG-compliant, device-agnostic experiences.
             </p>
-            <div className="flex-chips">
-              <span className="chip-title">Focus areas:</span>
-              {labelsPerfA11y.map((label, i) => (
-                <Chip key={i} className="chip" label={label} />
-              ))}
-            </div>
+            {renderChips(labelsPerfA11y, "Focus areas")}
           </motion.div>
+
+          {/* ... (repeat the pattern for all other skill sections) ... */}
 
           {/* Testing & Quality */}
           <motion.div className="skill" variants={itemVariants}>
-            <FontAwesomeIcon icon={faCheckCircle} size="3x" />
+            <FontAwesomeIcon icon={faCheckCircle} size="3x" aria-hidden="true" />
             <h3>Testing & Quality</h3>
             <p>
               Shipping with confidence via unit, integration, and E2E coverage; automated
               checks in CI to keep releases stable and maintainable.
             </p>
-            <div className="flex-chips">
-              <span className="chip-title">Tools:</span>
-              {labelsTestingQuality.map((label, i) => (
-                <Chip key={i} className="chip" label={label} />
-              ))}
-            </div>
+            {renderChips(labelsTestingQuality, "Tools")}
           </motion.div>
-
+          
           {/* DevOps & Tooling */}
           <motion.div className="skill" variants={itemVariants}>
-            <FontAwesomeIcon icon={faDocker} size="3x" />
+            <FontAwesomeIcon icon={faDocker} size="3x" aria-hidden="true" />
             <h3>DevOps & Tooling</h3>
             <p>
               Streamlined delivery with CI/CD, preview deployments, and containerized
               builds across AWS Amplify, Netlify, and Vercel.
             </p>
-            <div className="flex-chips">
-              <span className="chip-title">Platforms & tools:</span>
-              {labelsDevOps.map((label, i) => (
-                <Chip key={i} className="chip" label={label} />
-              ))}
-            </div>
+            {renderChips(labelsDevOps, "Platforms & tools")}
           </motion.div>
-
+          
           {/* API & Data */}
           <motion.div className="skill" variants={itemVariants}>
-            <FontAwesomeIcon icon={faNetworkWired} size="3x" />
+            <FontAwesomeIcon icon={faNetworkWired} size="3x" aria-hidden="true" />
             <h3>API Integration & Data</h3>
             <p>
               Robust REST integrations with resilient error handling, retries, and
               client-side caching for fast, reliable data flows.
             </p>
-            <div className="flex-chips">
-              <span className="chip-title">Core skills:</span>
-              {labelsAPIData.map((label, i) => (
-                <Chip key={i} className="chip" label={label} />
-              ))}
-            </div>
+            {renderChips(labelsAPIData, "Core skills")}
           </motion.div>
 
           {/* Backend (Node/Express basic) */}
           <motion.div className="skill" variants={itemVariants}>
-            <FontAwesomeIcon icon={faNodeJs} size="3x" />
+            <FontAwesomeIcon icon={faNodeJs} size="3x" aria-hidden="true" />
             <h3>Backend (Node/Express — Basic)</h3>
             <p>
               Building and testing REST endpoints to support frontend needs with Node.js
               and Express; pragmatic auth and data handling.
             </p>
-            <div className="flex-chips">
-              <span className="chip-title">Tech stack:</span>
-              {labelsBackendBasic.map((label, i) => (
-                <Chip key={i} className="chip" label={label} />
-              ))}
-            </div>
+            {renderChips(labelsBackendBasic, "Tech stack")}
           </motion.div>
 
           {/* Backend & APIs (Extended: Java / Spring Boot / Python / Flask) */}
           <motion.div className="skill" variants={itemVariants}>
-            {/* Using brand + solid icons to visually hint Java/Spring/Python/Flask */}
             <div className="icon-row">
-              <FontAwesomeIcon icon={faJava} size="2x" style={{ marginRight: 12 }} />
-              <FontAwesomeIcon icon={faLeaf} size="2x" style={{ marginRight: 12 }} />
-              <FontAwesomeIcon icon={faPython} size="2x" style={{ marginRight: 12 }} />
-              <FontAwesomeIcon icon={faFlask} size="2x" />
+              <FontAwesomeIcon icon={faJava} size="2x" style={{ marginRight: 12 }} aria-hidden="true" />
+              <FontAwesomeIcon icon={faLeaf} size="2x" style={{ marginRight: 12 }} aria-hidden="true" />
+              <FontAwesomeIcon icon={faPython} size="2x" style={{ marginRight: 12 }} aria-hidden="true" />
+              <FontAwesomeIcon icon={faFlask} size="2x" aria-hidden="true" />
             </div>
             <h3>Backend Development & APIs</h3>
             <p>
@@ -249,13 +221,9 @@ function Expertise() {
               (Flask), alongside Node/Express. Focus on secure auth, database integration,
               and clean REST services to support scalable frontends.
             </p>
-            <div className="flex-chips">
-              <span className="chip-title">Tech stack:</span>
-              {labelsBackendExtended.map((label, i) => (
-                <Chip key={i} className="chip" label={label} />
-              ))}
-            </div>
+            {renderChips(labelsBackendExtended, "Tech stack")}
           </motion.div>
+
         </motion.div>
       </motion.div>
     </div>
