@@ -12,7 +12,10 @@ import FadeIn from './components/FadeIn';
 import './index.scss';
 
 function App() {
-    const [mode, setMode] = useState<'light' | 'dark'>('light');
+    const [mode, setMode] = useState<'light' | 'dark'>(() => {
+        const savedMode = localStorage.getItem('theme-mode');
+        return savedMode === 'dark' ? 'dark' : 'light';
+    });
 
     const handleModeChange = () => {
         if (mode === 'dark') {
@@ -21,6 +24,11 @@ function App() {
             setMode('dark');
         }
     }
+
+    // 2. Use useEffect to save the mode to local storage whenever it changes
+    useEffect(() => {
+        localStorage.setItem('theme-mode', mode);
+    }, [mode]);
 
     useEffect(() => {
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
