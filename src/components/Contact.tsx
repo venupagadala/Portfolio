@@ -180,7 +180,7 @@ function Contact() {
           )}
         </div>
 
-        <button type="submit" disabled={!isFormValid}>
+        <button className="submit-btn" type="submit" disabled={!isFormValid}>
           Send Message
         </button>
       </form>

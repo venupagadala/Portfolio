@@ -24,7 +24,7 @@ function Main() {
               <GitHubIcon aria-hidden="true" /> {/* ADDED: aria-hidden */}
             </a>
             <a
-              href="https://www.linkedin.com/in/venu-gopalreddy-01068823a/"
+              href="https://www.linkedin.com/in/venu-pagadala-77ab3a251/"
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn Profile" // ADDED: aria-label
@@ -46,23 +46,23 @@ function Main() {
               href="https://github.com/venupagadala"
               target="_blank"
               rel="noreferrer"
-              aria-label="GitHub Profile" // ADDED: aria-label
+              aria-label="GitHub Profile" 
             >
-              <GitHubIcon aria-hidden="true" /> {/* ADDED: aria-hidden */}
+              <GitHubIcon aria-hidden="true" /> 
             </a>
             <a
-              href="https://www.linkedin.com/in/venu-gopalreddy-01068823a/"
+              href="https://www.linkedin.com/in/venu-pagadala-77ab3a251/"
               target="_blank"
               rel="noreferrer"
-              aria-label="LinkedIn Profile" // ADDED: aria-label
+              aria-label="LinkedIn Profile" 
             >
-              <LinkedInIcon aria-hidden="true" /> {/* ADDED: aria-hidden */}
+              <LinkedInIcon aria-hidden="true" /> 
             </a>
              <a 
               href="mailto:venupagadala13@gmail.com"
-              aria-label="Email Venu" // ADDED: aria-label
+              aria-label="Email Venu" 
             >
-              <EmailIcon aria-hidden="true" /> {/* ADDED: aria-hidden */}
+              <EmailIcon aria-hidden="true" /> 
             </a>
           </div>
         </div>
