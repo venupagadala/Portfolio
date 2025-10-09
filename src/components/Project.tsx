@@ -15,8 +15,13 @@ type Repo = {
   created_at: string;
 };
 
+// Extended Repo type to include all languages
+type RepoWithLanguages = Repo & {
+  allLanguages: string[];
+};
+
 function Projects() {
-  const [repos, setRepos] = useState<Repo[]>([]);
+  const [repos, setRepos] = useState<RepoWithLanguages[]>([]);
   const [loading, setLoading] = useState(true);
 
   const { ref: projectsGridRef, inView: projectsGridInView } = useInView({
@@ -25,7 +30,7 @@ function Projects() {
   });
 
   useEffect(() => {
-    const fetchRepos = async () => {
+    const fetchReposAndLanguages = async () => {
       try {
         const res = await fetch(
           "https://api.github.com/users/venupagadala/repos"
@@ -35,14 +40,29 @@ function Projects() {
           (a, b) =>
             new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
         );
-        setRepos(sortedData);
+
+        // Fetch all languages for each repo
+        const reposWithLanguages = await Promise.all(
+          sortedData.map(async (repo) => {
+            const langRes = await fetch(
+              `https://api.github.com/repos/venupagadala/${repo.name}/languages`
+            );
+            const langData = await langRes.json();
+            return {
+              ...repo,
+              allLanguages: Object.keys(langData),
+            };
+          })
+        );
+
+        setRepos(reposWithLanguages);
       } catch (err) {
         console.error("Error fetching repos", err);
       } finally {
         setLoading(false);
       }
     };
-    fetchRepos();
+    fetchReposAndLanguages();
   }, []);
 
   const containerVariants: Variants = {
@@ -94,31 +114,40 @@ function Projects() {
               variants={itemVariants}
               aria-labelledby={`project-title-${repo.id}`}
             >
-              <div className="project-card__inner">
+              <div className="project-card__top-layer">
                 <div className="project-card__content">
-                  <h2
-                    id={`project-title-${repo.id}`}
-                    className="project-card__title"
-                  >
+                  <h3 id={`project-title-${repo.id}`} className="project-card__title">
                     {repo.name}
-                  </h2>
-                  <p className="project-card__language">
-                    {repo.language || "Unknown"}
+                  </h3>
+                  <p className="project-card__description--visible">
+                    {repo.description || "No description available."}
                   </p>
                 </div>
-
-                <div className="project-card__hover">
-                  <h3 className="project-card__hover-title">{repo.name}</h3>
-                  <a
-                    href={repo.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="project-card__link"
-                    aria-label={`View ${repo.name} on GitHub`}
-                  >
-                    <FontAwesomeIcon icon={faGithub} size="lg" />
-                  </a>
+                <div className="project-card__languages">
+                  {repo.allLanguages.map((lang) => (
+                    <span key={lang} className="language-tag">
+                      {lang}
+                    </span>
+                  ))}
                 </div>
+              </div>
+              
+              <div className="project-card__bottom-layer">
+                <div className="project-card__details">
+                  <h3 className="project-card__title">{repo.name}</h3>
+                  <p className="project-card__description">
+                    {repo.description || "No description available."}
+                  </p>
+                </div>
+                <a
+                  href={repo.html_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-card__link"
+                  aria-label={`View ${repo.name} on GitHub`}
+                >
+                  <FontAwesomeIcon icon={faGithub} /> View on GitHub
+                </a>
               </div>
             </motion.article>
           ))}
