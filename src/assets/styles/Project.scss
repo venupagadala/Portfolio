@@ -99,6 +99,7 @@
   &__description--visible,
   &__description {
     font-size: 0.9rem;
+    color: var(--text-secondary);
     line-height: 1.4;
     max-height: 80px; /* Set a max height */
     overflow-y: auto; /* Enable scroll */
@@ -149,6 +150,7 @@
     font-weight: 600;
     transition: all 0.3s ease;
     z-index: 1;
+    
 
     &::before {
       content: '';
@@ -210,7 +212,7 @@
             width: 6px;
         }
         &::-webkit-scrollbar-thumb {
-            background-color: rgba(0, 0, 0, 0.1);
+            background-color: white;
             border-radius: 3px;
         }
         &::-webkit-scrollbar-track {
@@ -218,4 +220,17 @@
         }
     }
   }
+}
+
+.project-card:hover .project-card__title,
+.project-card:focus-within .project-card__title {
+  color: #ffffff;
+}
+.project-card:hover .project-card__description,
+.project-card:focus-within .project-card__description {
+  color: #ffffff;
+}
+.project-card:hover .project-card__link,
+.project-card:focus-within .project-card__link {
+  color: #ffffff;
 }

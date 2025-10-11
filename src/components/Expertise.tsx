@@ -19,15 +19,16 @@ import {
 import Chip from "@mui/material/Chip";
 import "../assets/styles/Expertise.scss";
 
-// ... (existing tech stack arrays and animation variants)
-
 // Define tech stack arrays for each skill section
 const labelsFrontend = [
   "React",
   "Next.js",
+  "Angular",
   "TypeScript",
   "Redux",
   "MUI",
+  "RxJS",
+  "NgRx",
   "Styled Components",
   "Figma",
 ];
@@ -142,7 +143,7 @@ function Expertise() {
           <motion.div className="skill" variants={itemVariants}>
             {/* Added aria-hidden="true" to decorative icons */}
             <FontAwesomeIcon icon={faReact} size="3x" aria-hidden="true" />
-            <h3>Frontend Engineering (React & Next.js)</h3>
+            <h3>Frontend Engineering (React, Angular & Next.js)</h3>
             <p>
               Building scalable, high-performance, and accessible UIs. Strong focus on
               SSR/SSG, reusable component libraries, and seamless Figma → code handoff.
