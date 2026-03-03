@@ -1,8 +1,5 @@
 # 🌟 Portfolio Website
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-%23000000.svg?style=for-the-badge&logo=firefoxbrowser&logoColor=white)](https://venupagadala.github.io/Portfolio/)
-[![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/venupagadala/Portfolio)
-
 
 Welcome to my professional portfolio website! This responsive web application showcases my skills, projects, and professional journey as a Senior Frontend Enginner.
 
