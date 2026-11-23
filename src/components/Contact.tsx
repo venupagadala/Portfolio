@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import "./contact.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { profile } from "../data/resume";
 
 // ✅ Email RegEx validation
 const isValidEmail = (email: string): boolean => {
-  const regex = /^[\w.-]+@[a-zA-Z\d-]+\.[a-zA-Z]{2,4}$/;
-  return regex.test(email) && email.endsWith(".com");
+  return /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email.trim());
 };
 
 function Contact() {
@@ -24,6 +24,8 @@ function Contact() {
     message: "",
   });
 
+  const [sending, setSending] = useState(false);
+
   const [touched, setTouched] = useState({
     name: false,
     email: false,
@@ -37,7 +39,7 @@ function Contact() {
       case "name":
         return value.trim() ? "" : "Please enter your name";
       case "email":
-        return isValidEmail(value) ? "" : "Enter a valid .com email";
+        return isValidEmail(value) ? "" : "Enter a valid email address";
       case "phone":
         return value && !/^\d{10}$/.test(value)
           ? "Phone number must be 10 digits"
@@ -94,17 +96,27 @@ function Contact() {
     const isValid = Object.values(newErrors).every((err) => err === "");
     if (!isValid) return;
 
-    toast.success("Message sent successfully!");
-    setFormData({ name: "", email: "", phone: "", message: "" });
-
+    setSending(true);
+    // The backend sleeps on its free tier, so allow a slow cold start.
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 45000);
     try {
-      await fetch("https://portfolio-backend-1wl9.onrender.com/send", {
+      const res = await fetch("https://portfolio-backend-1wl9.onrender.com/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
+        signal: controller.signal,
       });
+      if (!res.ok) throw new Error(`Send failed with status ${res.status}`);
+      toast.success("Thanks! Your message is on its way.");
+      setFormData({ name: "", email: "", phone: "", message: "" });
+      setTouched({ name: false, email: false, phone: false, message: false });
     } catch (error) {
-      console.error("Email send error (ignored):", error);
+      console.error("Email send error:", error);
+      toast.error(`Couldn't send right now. Please email me at ${profile.email}.`);
+    } finally {
+      clearTimeout(timer);
+      setSending(false);
     }
   };
 
@@ -116,10 +128,10 @@ function Contact() {
 
   return (
     <div className="contact-container" id="contact">
-      <h1>Contact Me</h1>
+      <h2>Contact</h2>
       <p>
-        Got a project waiting to be realized? Let's collaborate and make it
-        happen!
+        Email me at <a href={`mailto:${profile.email}`}>{profile.email}</a>, or use the form
+        below.
       </p>
 
       <form className="contact-form" onSubmit={handleSubmit}>
@@ -180,8 +192,13 @@ function Contact() {
           )}
         </div>
 
-        <button className="submit-btn" type="submit" disabled={!isFormValid}>
-          Send Message
+        <button
+          className="submit-btn"
+          type="submit"
+          disabled={!isFormValid || sending}
+          aria-busy={sending}
+        >
+          {sending ? "Sending…" : "Send message"}
         </button>
       </form>
 

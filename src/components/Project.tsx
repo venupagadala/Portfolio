@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useInView } from "react-intersection-observer";
-import { motion, Variants, Transition } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 import "../assets/styles/Project.scss";
+import { profile } from "../data/resume";
 
 type Repo = {
   id: number;
@@ -13,9 +12,12 @@ type Repo = {
   html_url: string;
   language: string | null;
   created_at: string;
+  pushed_at: string;
+  languages_url: string;
+  fork: boolean;
+  archived: boolean;
 };
 
-// Extended Repo type to include all languages
 type RepoWithLanguages = Repo & {
   allLanguages: string[];
 };
@@ -23,136 +25,156 @@ type RepoWithLanguages = Repo & {
 function Projects() {
   const [repos, setRepos] = useState<RepoWithLanguages[]>([]);
   const [loading, setLoading] = useState(true);
-
-  const { ref: projectsGridRef, inView: projectsGridInView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const CACHE_KEY = "gh-repos-v3";
+    const CACHE_TTL = 1000 * 60 * 60; // 1h: unauthenticated GitHub API allows 60 req/h per IP
+
+    const readCache = (): RepoWithLanguages[] | null => {
+      try {
+        const raw = sessionStorage.getItem(CACHE_KEY);
+        if (!raw) return null;
+        const { at, data } = JSON.parse(raw);
+        return Date.now() - at < CACHE_TTL ? data : null;
+      } catch {
+        return null;
+      }
+    };
+
     const fetchReposAndLanguages = async () => {
+      const cached = readCache();
+      if (cached) {
+        setRepos(cached);
+        setLoading(false);
+        return;
+      }
       try {
         const res = await fetch(
-          "https://api.github.com/users/venupagadala/repos"
+          `https://api.github.com/users/${profile.githubUser}/repos?sort=pushed&per_page=100`,
+          { signal: controller.signal }
         );
+        if (!res.ok) {
+          throw new Error(`GitHub API returned status ${res.status}`);
+        }
         const data: Repo[] = await res.json();
-        const sortedData = data.sort(
-          (a, b) =>
-            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-        );
+        const visible = data
+          .filter((r) => !r.fork && !r.archived && r.name !== profile.githubUser)
+          .sort((a, b) => new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime())
+          .slice(0, 9);
 
-        // Fetch all languages for each repo
-        const reposWithLanguages = await Promise.all(
-          sortedData.map(async (repo) => {
-            const langRes = await fetch(
-              `https://api.github.com/repos/venupagadala/${repo.name}/languages`
-            );
-            const langData = await langRes.json();
-            return {
-              ...repo,
-              allLanguages: Object.keys(langData),
-            };
+        const settled = await Promise.allSettled(
+          visible.map(async (repo) => {
+            const langRes = await fetch(repo.languages_url, { signal: controller.signal });
+            if (!langRes.ok) throw new Error("languages unavailable");
+            return Object.keys(await langRes.json());
           })
         );
+        const withLanguages = visible.map((repo, i) => {
+          const result = settled[i];
+          return {
+            ...repo,
+            allLanguages:
+              result.status === "fulfilled" ? result.value : repo.language ? [repo.language] : [],
+          };
+        });
 
-        setRepos(reposWithLanguages);
+        setRepos(withLanguages);
+        try {
+          sessionStorage.setItem(CACHE_KEY, JSON.stringify({ at: Date.now(), data: withLanguages }));
+        } catch {
+          /* storage unavailable: fine, we just refetch next visit */
+        }
       } catch (err) {
+        if ((err as Error).name === "AbortError") return;
         console.error("Error fetching repos", err);
+        setError("GitHub is not responding right now.");
       } finally {
-        setLoading(false);
+        if (!controller.signal.aborted) setLoading(false);
       }
     };
     fetchReposAndLanguages();
+    return () => controller.abort();
   }, []);
 
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 },
-    },
-  };
+  const renderContent = () => {
+    if (loading) {
+      return (
+        <p role="status" aria-live="polite" className="projects__status-message">
+          Loading projects…
+        </p>
+      );
+    }
 
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: [0.42, 0, 0.58, 1] as any,
-      } as Transition,
-    },
+    if (error) {
+      return (
+        <p role="alert" className="projects__error-message">
+          {error}{" "}
+          <a href={profile.github} target="_blank" rel="noopener noreferrer">
+            Browse my repositories on GitHub
+          </a>
+          .
+        </p>
+      );
+    }
+
+    return (
+      <div className="projects__grid">
+        {repos.map((repo) => (
+          <article
+            key={repo.id}
+            className="project-card"
+            aria-labelledby={`project-title-${repo.id}`}
+          >
+            <div className="project-card__top-layer">
+              <div className="project-card__content">
+                <h3 id={`project-title-${repo.id}`} className="project-card__title">
+                  {repo.name}
+                </h3>
+                <p className="project-card__description--visible">
+                  {repo.description || "No description available."}
+                </p>
+              </div>
+              <div className="project-card__languages">
+                {repo.allLanguages.map((lang) => (
+                  <span key={lang} className="language-tag">
+                    {lang}
+                  </span>
+                ))}
+              </div>
+            </div>
+            
+            <div className="project-card__bottom-layer">
+              <div className="project-card__details">
+                <h3 className="project-card__title">{repo.name}</h3>
+                <p className="project-card__description">
+                  {repo.description || "No description available."}
+                </p>
+              </div>
+              <a
+                href={repo.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-card__link"
+                aria-label={`View ${repo.name} on GitHub`}
+              >
+                <FontAwesomeIcon icon={faGithub} /> View on GitHub
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    );
   };
 
   return (
-    <section id="projects" className="projects">
-      <header className="projects__header">
-        <h1 className="projects__title">Projects</h1>
-        <p className="projects__subtitle">
-          A glimpse into the projects I’ve built, combining creativity, clean
-          code, and modern web technologies.
-        </p>
+    <section id="projects" className="section projects" aria-labelledby="projects-title">
+      <header className="section-header">
+        <h2 id="projects-title">Projects</h2>
+        <p>Personal projects from my GitHub.</p>
       </header>
-
-      {loading ? (
-        <p role="status" aria-live="polite">
-          Loading projects…
-        </p>
-      ) : (
-        <motion.div
-          ref={projectsGridRef}
-          className="projects__grid"
-          variants={containerVariants}
-          initial="hidden"
-          animate={projectsGridInView ? "visible" : "hidden"}
-        >
-          {repos.map((repo) => (
-            <motion.article
-              key={repo.id}
-              className="project-card"
-              variants={itemVariants}
-              aria-labelledby={`project-title-${repo.id}`}
-            >
-              <div className="project-card__top-layer">
-                <div className="project-card__content">
-                  <h3 id={`project-title-${repo.id}`} className="project-card__title">
-                    {repo.name}
-                  </h3>
-                  <p className="project-card__description--visible">
-                    {repo.description || "No description available."}
-                  </p>
-                </div>
-                <div className="project-card__languages">
-                  {repo.allLanguages.map((lang) => (
-                    <span key={lang} className="language-tag">
-                      {lang}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              
-              <div className="project-card__bottom-layer">
-                <div className="project-card__details">
-                  <h3 className="project-card__title">{repo.name}</h3>
-                  <p className="project-card__description">
-                    {repo.description || "No description available."}
-                  </p>
-                </div>
-                <a
-                  href={repo.html_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="project-card__link"
-                  aria-label={`View ${repo.name} on GitHub`}
-                >
-                  <FontAwesomeIcon icon={faGithub} /> View on GitHub
-                </a>
-              </div>
-            </motion.article>
-          ))}
-        </motion.div>
-      )}
+      {renderContent()}
     </section>
   );
 }
