@@ -18,7 +18,7 @@ import Toolbar from '@mui/material/Toolbar';
 import "../assets/styles/Navigation.scss";
 
 const drawerWidth = 240;
-const navItems = [['Expertise', 'expertise'], ['History', 'history'], ['Projects', 'projects'], ['Contact', 'contact']];
+const navItems = [['Experience', 'experience'], ['Work', 'work'], ['Skills', 'expertise'], ['Education', 'education'], ['Projects', 'projects'], ['Contact', 'contact']];
 
 function Navigation({parentToChild, modeChange}: any) {
   const {mode} = parentToChild;
@@ -38,9 +38,35 @@ function Navigation({parentToChild, modeChange}: any) {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Highlight the section currently in view.
+  const [active, setActive] = useState<string>('');
+  useEffect(() => {
+    if (!('IntersectionObserver' in window)) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      { rootMargin: '-45% 0px -50% 0px' }
+    );
+    // Lazy sections mount later, so re-scan briefly after load.
+    const observeAll = () =>
+      navItems.forEach(([, id]) => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+    observeAll();
+    const t = setTimeout(observeAll, 1500);
+    return () => {
+      clearTimeout(t);
+      observer.disconnect();
     };
   }, []);
 
@@ -49,7 +75,7 @@ function Navigation({parentToChild, modeChange}: any) {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     } else {
-      console.error(`Element with id "${section}" not found`);
+      window.location.hash = section;
     }
   };
 
@@ -80,7 +106,7 @@ function Navigation({parentToChild, modeChange}: any) {
         <Toolbar className="navigation-bar">
           <IconButton
             color="inherit"
-            aria-label="open drawer"
+            aria-label="Open navigation menu"
             edge="start"
             onClick={handleDrawerToggle}
             className={`icon-button-${mode}`}
@@ -108,7 +134,8 @@ function Navigation({parentToChild, modeChange}: any) {
               <Button 
                 key={item[0]} 
                 onClick={() => scrollToSection(item[1])} 
-                className={`nav-button-${mode}`}
+                aria-current={active === item[1] ? 'location' : undefined}
+                className={`nav-button-${mode}${active === item[1] ? ' is-active' : ''}`}
               >
                 {item[0]}
               </Button>

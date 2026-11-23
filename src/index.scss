@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -116,10 +120,6 @@ p, a, h1, h2, h3, h4, h5, label, button {
     color: #0d1116;
   }
 
-  .about-section {
-    background-image: url("./assets/images/bg-light.png");
-  }
-
   .skills-container svg {
     color: #0d1116;
   }
@@ -127,22 +127,6 @@ p, a, h1, h2, h3, h4, h5, label, button {
   .chip {
     background-color: rgba(0, 0, 0, 0.08);
     box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-  }
-
-  .vertical-timeline::before {
-    background-color: rgba(0, 0, 0, 0.08);
-  }
-
-  .vertical-timeline--animate .vertical-timeline-element-content.bounce-in {
-    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-  }
-
-  .vertical-timeline--two-columns .vertical-timeline-element-content .vertical-timeline-element-date {
-    color: gray;
-  }
-
-  .vertical-timeline-element-content-arrow {
-    border-right: 7px solid rgba(0, 0, 0, 0.08) !important;
   }
 
   .flex-chips .chip-title {
@@ -181,10 +165,10 @@ p, a, h1, h2, h3, h4, h5, label, button {
 
 /* Optional: active button underline (desktop) */
 @media (min-width: 600px) {
-  .navigation-bar button[aria-current="page"] {
+  .navigation-bar button[aria-current] {
     position: relative;
   }
-  .navigation-bar button[aria-current="page"]::after {
+  .navigation-bar button[aria-current]::after {
     content: "";
     position: absolute;
     left: 10%;
@@ -199,15 +183,3 @@ p, a, h1, h2, h3, h4, h5, label, button {
 
 
 
-/* keyboard accessibility */
-.skip-link {
-  position: absolute;
-  left: -999px;
-  top: 0;
-  background: #111827;
-  color: #fff;
-  padding: .5rem .75rem;
-  border-radius: .5rem;
-  z-index: 10000;
-}
-.skip-link:focus { left: .75rem; top: .75rem; }

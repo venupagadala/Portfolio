@@ -1,73 +1,59 @@
-// Main.js
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import "../assets/styles/Main.scss";
-import profilePic from "./../assets/images/dp.png";
 import EmailIcon from "@mui/icons-material/Email";
+import "../assets/styles/Main.scss";
+import { profile } from "../data/resume";
+
+const scrollTo = (id: string) => (e: React.MouseEvent) => {
+  const el = document.getElementById(id);
+  if (el) {
+    e.preventDefault();
+    el.scrollIntoView({ behavior: "smooth" });
+  }
+};
 
 function Main() {
   return (
-    <div className="container">
-      <div className="about-section">
-        <div className="image-wrapper">
-          {/* ADDED: alt text for the profile picture */}
-          <img src={profilePic} alt="Venu Pagadala's profile avatar" />
-        </div>
-        <div className="content">
-          <div className="social_icons">
-            <a
-              href="https://github.com/venupagadala"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub Profile" // ADDED: aria-label
-            >
-              <GitHubIcon aria-hidden="true" /> {/* ADDED: aria-hidden */}
-            </a>
-            <a
-              href="https://www.linkedin.com/in/venu-pagadala-77ab3a251/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn Profile" // ADDED: aria-label
-            >
-              <LinkedInIcon aria-hidden="true" /> {/* ADDED: aria-hidden */}
-            </a>
-            <a 
-              href="mailto:venupagadala13@gmail.com"
-              aria-label="Email Venu" // ADDED: aria-label
-            >
-              <EmailIcon aria-hidden="true" /> {/* ADDED: aria-hidden */}
-            </a>
-          </div>
-          <h1>Venu Pagadala</h1>
-          <h2 className="job-title">Software Engineer</h2>
+    <section className="hero" id="about" aria-labelledby="hero-name">
+      <div className="hero__inner">
+        <div className="hero__content">
+          <p className="hero__status">
+            <span className="hero__dot" aria-hidden="true" />
+            {profile.currentRole} at {profile.currentCompany}
+          </p>
+          <h1 id="hero-name">{profile.name}</h1>
+          <h2 className="hero__title">{profile.title}</h2>
+          <p className="hero__tagline">{profile.tagline}</p>
 
-          <div className="mobile_social_icons">
-            <a
-              href="https://github.com/venupagadala"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub Profile" 
-            >
-              <GitHubIcon aria-hidden="true" /> 
+          <div className="hero__cta">
+            <a className="btn btn--primary" href="#experience" onClick={scrollTo("experience")}>
+              Experience
             </a>
-            <a
-              href="https://www.linkedin.com/in/venu-pagadala-77ab3a251/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn Profile" 
-            >
-              <LinkedInIcon aria-hidden="true" /> 
-            </a>
-             <a 
-              href="mailto:venupagadala13@gmail.com"
-              aria-label="Email Venu" 
-            >
-              <EmailIcon aria-hidden="true" /> 
+            <a className="btn btn--ghost" href="#contact" onClick={scrollTo("contact")}>
+              Contact me
             </a>
           </div>
+
+          <ul className="hero__social" aria-label="Profiles">
+            <li>
+              <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
+                <LinkedInIcon aria-hidden="true" />
+              </a>
+            </li>
+            <li>
+              <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub profile">
+                <GitHubIcon aria-hidden="true" />
+              </a>
+            </li>
+            <li>
+              <a href={`mailto:${profile.email}`} aria-label={`Email ${profile.name}`}>
+                <EmailIcon aria-hidden="true" />
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
