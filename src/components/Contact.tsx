@@ -139,7 +139,11 @@ function Contact() {
           {["name", "email", "phone"].map((field) => (
             <div key={field} className="floating-label">
               <input
-                type={field === "email" ? "email" : "text"}
+                id={`contact-${field}`}
+                type={field === "email" ? "email" : field === "phone" ? "tel" : "text"}
+                inputMode={field === "phone" ? "numeric" : undefined}
+                autoComplete={field === "name" ? "name" : field === "email" ? "email" : "tel"}
+                aria-invalid={Boolean(touched[field as keyof typeof touched] && errors[field as keyof typeof errors])}
                 name={field}
                 value={formData[field as keyof typeof formData]}
                 onChange={handleChange}
@@ -155,6 +159,7 @@ function Contact() {
                 required={field !== "phone"}
               />
               <label
+                htmlFor={`contact-${field}`}
                 className={
                   formData[field as keyof typeof formData] ? "active" : ""
                 }
@@ -178,6 +183,7 @@ function Contact() {
 
         <div className="floating-label full-width">
           <textarea
+            id="contact-message"
             name="message"
             value={formData.message}
             onChange={handleChange}
@@ -186,7 +192,9 @@ function Contact() {
             rows={6}
             required
           />
-          <label className={formData.message ? "active" : ""}>Message</label>
+          <label htmlFor="contact-message" className={formData.message ? "active" : ""}>
+            Message
+          </label>
           {touched.message && errors.message && (
             <span className="error-text">{errors.message}</span>
           )}

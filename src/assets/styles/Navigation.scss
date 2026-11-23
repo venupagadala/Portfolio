@@ -1,127 +1,99 @@
-.navbar-fixed-top {
-  transition: all 0.3s ease;
-
-  &.light-mode {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.18);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  }
-
-  &.dark-mode {
-    background-color: rgba(0, 0, 0, 0.3);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  }
-
-  &.scrolled {
-    &.light-mode {
-      background-color: rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-
-    &.dark-mode {
-      background-color: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-  }
+// Floating glass nav bar, aligned to the page's content gutters.
+.site-nav {
+  position: fixed;
+  top: 12px;
+  left: var(--section-x);
+  right: var(--section-x);
+  z-index: 1100;
 }
 
-.drawer-light {
-  background-color: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-right: 1px solid rgba(0, 0, 0, 0.18);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-}
-
-.drawer-dark {
-  background-color: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-right: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-}
-
-.navigation-bar {
+.site-nav__bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1rem;
+  gap: 8px;
+  min-height: 56px;
+  padding: 0 12px;
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-sheen), var(--glass-bg-strong);
+  box-shadow: var(--glass-edge), var(--shadow);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
 }
 
-.navigation-bar-responsive {
-  padding: 1rem;
+.site-nav__icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text) !important;
+  font-size: 1.4rem;
 
-  &.light-mode {
-    color: rgb(39, 40, 34);
-  }
-
-  &.dark-mode {
-    color: #fff;
+  &:hover {
+    background: var(--accent-soft);
+    color: var(--accent) !important;
   }
 }
 
-.mobile-menu-top {
-  font-size: 1.2rem;
-  font-weight: 600;
+.site-nav__links {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 
-.divider-light {
-  border-color: rgba(0, 0, 0, 0.2);
-}
+  a {
+    display: block;
+    padding: 8px 12px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.02rem;
+    color: var(--text) !important;
+    transition: background-color 0.15s ease, color 0.15s ease;
 
-.divider-dark {
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.list-item-button-light {
-  color: rgb(39, 40, 34);
-}
-
-.list-item-button-dark {
-  color: #fff;
-}
-
-.icon-button-light {
-  color: rgb(39, 40, 34);
-}
-
-.icon-button-dark {
-  color: #fff;
-}
-
-.theme-icon-light {
-  color: rgb(39, 40, 34);
-  cursor: pointer;
-}
-
-.theme-icon-dark {
-  color: #fff;
-  cursor: pointer;
-}
-
-.nav-button-light {
-  color: rgb(39, 40, 34);
-  &:hover {
-    background-color: #fff;
-    color: rgb(39, 40, 34);
+    &:hover,
+    &.is-active {
+      background: var(--accent-soft);
+      color: var(--accent) !important;
+    }
   }
 }
 
-.nav-button-dark {
-  color: #fff;
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #fff;
+.site-nav__toggle {
+  display: none;
+}
+
+// Mobile: links collapse into a glass panel under the bar.
+@media (max-width: 760px) {
+  .site-nav__toggle {
+    display: grid;
+  }
+
+  .site-nav__bar {
+    flex-wrap: wrap;
+  }
+
+  .site-nav__links {
+    display: none;
+    order: 3;
+    flex-basis: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 4px 0 12px;
+
+    .site-nav.is-open & {
+      display: flex;
+    }
+
+    a {
+      padding: 12px 14px;
+    }
   }
 }

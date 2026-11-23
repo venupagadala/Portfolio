@@ -1,6 +1,10 @@
 // Single source of truth for portfolio content. Mirrors the resume, so a
 // resume update is one edit here rather than a hunt through components.
 
+import hdSupplyLogo from "../assets/logos/hd-supply.svg";
+import attLogo from "../assets/logos/att.svg";
+import essilorLogo from "../assets/logos/essilor.png";
+
 export const profile = {
   name: "Venu Pagadala",
   fullName: "Venu Gopal Pagadala",
@@ -39,6 +43,10 @@ export type Role = {
   id: string;
   company: string;
   monogram: string;
+  /** One-line industry tag shown in the card's brand band. */
+  sector: string;
+  /** Company logo, shown on a white tile so it reads in both themes. */
+  logo: string;
   role: string;
   employment?: string;
   location: string;
@@ -51,6 +59,12 @@ export type Role = {
   groups: HighlightGroup[];
   stack: string[];
   liveSite?: { label: string; href: string; areas: string[] };
+  /**
+   * Company colours. `fill` is the brand colour used for surfaces, `ink` is the
+   * text colour that sits on it, and `light`/`dark` are accessible text accents
+   * for each theme (brand yellow fails contrast as text on a light page).
+   */
+  brand: { fill: string; ink: string; light: string; dark: string };
 };
 
 export const experience: Role[] = [
@@ -58,6 +72,9 @@ export const experience: Role[] = [
     id: "hd-supply",
     company: "HD Supply / Home Depot",
     monogram: "HD",
+    sector: "B2B e-commerce · Facilities maintenance",
+    logo: hdSupplyLogo,
+    brand: { fill: "#FFC907", ink: "#000000", light: "#000000", dark: "#FFC907" },
     role: "Sr. Frontend Engineer (Full Stack)",
     location: "USA",
     start: "Aug 2025",
@@ -130,6 +147,9 @@ export const experience: Role[] = [
     id: "att",
     company: "AT&T Services, Inc.",
     monogram: "AT",
+    sector: "Telecom · Consumer web",
+    logo: attLogo,
+    brand: { fill: "#00A8E0", ink: "#FFFFFF", light: "#0057B8", dark: "#4CC3F0" },
     role: "Software Engineer",
     employment: "Contract",
     location: "USA",
@@ -184,6 +204,9 @@ export const experience: Role[] = [
     id: "essilor",
     company: "Essilor Group",
     monogram: "EG",
+    sector: "Optical lenses · Partner portals",
+    logo: essilorLogo,
+    brand: { fill: "#003A70", ink: "#FFFFFF", light: "#003A70", dark: "#8DB8FF" },
     role: "Frontend Developer",
     location: "India",
     start: "Jun 2020",

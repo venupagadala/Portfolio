@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 // Cards that get a cursor-tracking spotlight on hover.
 const SPOT_SELECTOR =
-  ".xp-card, .skill-card, .impact-strip .impact, .edu-card, .featured__card, .project-card__top-layer";
+  ".xp-card, .skill-card, .impact-strip .impact, .edu-card, .featured__card, .repo-card";
 
 /**
  * A soft colour glow that trails the mouse, plus a spotlight inside hovered
