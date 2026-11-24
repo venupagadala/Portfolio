@@ -1,44 +1,33 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faReact, faDocker } from "@fortawesome/free-brands-svg-icons";
-import {
-  faServer,
-  faDatabase,
-  faVialCircleCheck,
-  faWandMagicSparkles,
-  IconDefinition,
-} from "@fortawesome/free-solid-svg-icons";
 import { skills } from "../data/resume";
+import { SkillIcon } from "./Scenery";
 import "../assets/styles/Expertise.scss";
 
-const icons: Record<string, IconDefinition> = {
-  frontend: faReact,
-  backend: faServer,
-  data: faDatabase,
-  cloud: faDocker,
-  quality: faVialCircleCheck,
-  ai: faWandMagicSparkles,
-};
-
+// Skills as "seed packets": a paper card with a hand-drawn icon, a serif
+// title and the tools as small kraft-paper labels.
 function Expertise() {
   return (
     <section id="expertise" className="section expertise" aria-labelledby="expertise-title">
-      <header className="section-header">
+      <header className="section-head">
+        <p className="kicker">Tools of the trade</p>
         <h2 id="expertise-title">Skills</h2>
       </header>
 
-      <ul className="skills-grid">
-        {skills.map((group) => (
-          <li key={group.title} className="skill-card">
-            <span className="skill-card__icon" aria-hidden="true">
-              <FontAwesomeIcon icon={icons[group.icon]} />
-            </span>
+      <ul className="packets">
+        {skills.map((group, i) => (
+          <li key={group.title} className="packet">
+            <div className="packet__top">
+              <span className="packet__icon">
+                <SkillIcon name={group.icon} />
+              </span>
+              <span className="packet__no" aria-hidden="true">
+                No. {String(i + 1).padStart(2, "0")}
+              </span>
+            </div>
             <h3>{group.title}</h3>
-            <ul className="skill-card__tags" aria-label={`${group.title} skills`}>
+            <ul className="packet__items" aria-label={`${group.title} skills`}>
               {group.items.map((item) => (
-                <li key={item} className="tag">
-                  {item}
-                </li>
+                <li key={item}>{item}</li>
               ))}
             </ul>
           </li>

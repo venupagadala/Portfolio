@@ -66,14 +66,9 @@ function Navigation({ parentToChild, modeChange }: Props) {
   return (
     <header className={`site-nav${open ? " is-open" : ""}`}>
       <nav className="site-nav__bar" aria-label="Main">
-        <button
-          type="button"
-          className="site-nav__icon"
-          onClick={modeChange}
-          aria-label={mode === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-        >
-          {mode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
-        </button>
+        <a className="site-nav__brand" href="#about" onClick={go("about")}>
+          Venu Pagadala
+        </a>
 
         <ul className="site-nav__links" id="site-nav-links">
           {navItems.map(([label, id]) => (
@@ -89,6 +84,16 @@ function Navigation({ parentToChild, modeChange }: Props) {
             </li>
           ))}
         </ul>
+
+        <button
+          type="button"
+          className="site-nav__icon"
+          onClick={modeChange}
+          aria-label={mode === "dark" ? "Switch to morning (light) theme" : "Switch to evening (dark) theme"}
+          title={mode === "dark" ? "Morning" : "Evening"}
+        >
+          {mode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
+        </button>
 
         <button
           type="button"

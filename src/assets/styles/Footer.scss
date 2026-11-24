@@ -1,15 +1,35 @@
 .site-footer {
-    text-align: center;
-    padding-top: 50px;
-    padding-bottom: 50px;
+  margin-top: 48px;
 
-    svg {
-        width: 1.1em !important;
-        height: 1.1em !important;
-        margin-right: 10px;
-    }
+  &__hills {
+    display: block;
+    width: 100%;
+    height: 90px;
+  }
+
+  &__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 22px var(--gutter) 28px;
+    background: var(--hill-near);
 
     p {
-        font-size: 0.8em;
+      margin: 0;
+      font-size: 0.92rem;
+      color: #f3eedf;
     }
+
+    a {
+      color: #f3eedf;
+      text-decoration-color: rgba(243, 238, 223, 0.5);
+    }
+  }
+
+  &__links {
+    display: flex;
+    gap: 18px;
+  }
 }

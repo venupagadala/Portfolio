@@ -177,9 +177,9 @@
   // Ring sits off the right edge, clear of the dates.
   .xp-motif {
     opacity: 0.9;
-    width: 190px;
-    height: 190px;
-    right: -118px;
+    width: 170px;
+    height: 170px;
+    right: -122px;
   }
 
   .xp-dates {
@@ -537,5 +537,22 @@
     width: 180px;
     height: 180px;
     right: -60px;
+  }
+}
+
+// Phones: keep the decorative art clear of the title text.
+@media (max-width: 600px) {
+  .xp-list .xp-item--hd-supply .xp-motif {
+    width: 140px;
+    height: 140px;
+    right: -100px;
+    top: 34px;
+    transform: none;
+  }
+
+  .xp-list .xp-item--att .xp-motif,
+  .xp-list .xp-item--essilor .xp-motif {
+    right: -110px;
+    opacity: 0.18;
   }
 }

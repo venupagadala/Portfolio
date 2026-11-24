@@ -8,10 +8,8 @@ import {
   Navigation,
   Footer,
 } from "./components";
+import { MeadowEdge, Sprig } from "./components/Scenery";
 import "./index.scss";
-import "./assets/styles/tokens.scss";
-import "./assets/styles/glass.scss";
-import CursorGlow from "./components/CursorGlow";
 
 // Below-the-fold sections that pull in extra dependencies load on demand.
 const Project = lazy(() => import("./components/Project"));
@@ -43,7 +41,7 @@ function App() {
     document.documentElement.style.colorScheme = mode;
     document
       .querySelector('meta[name="theme-color"]')
-      ?.setAttribute("content", mode === "dark" ? "#0d1116" : "#f8f9fa");
+      ?.setAttribute("content", mode === "dark" ? "#18211c" : "#f6f1e6");
   }, [mode]);
 
   return (
@@ -51,16 +49,28 @@ function App() {
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
-      <CursorGlow />
       <Navigation parentToChild={{ mode }} modeChange={handleModeChange} />
       <main id="main-content">
         <Main />
         <Experience />
+        <Sprig />
         <FeaturedWork />
-        <Expertise />
+        <div className="meadow-band">
+          <MeadowEdge />
+          <div className="meadow">
+            <Expertise />
+          </div>
+          <MeadowEdge flip />
+        </div>
         <Education />
         <Suspense fallback={<div className="section" aria-busy="true" />}>
-          <Project />
+          <div className="meadow-band">
+            <MeadowEdge />
+            <div className="meadow">
+              <Project />
+            </div>
+            <MeadowEdge flip />
+          </div>
           <Contact />
         </Suspense>
       </main>

@@ -1,3 +1,53 @@
+// The company cards keep their own design (brand bands, logos, numbers).
+// These aliases map the tokens they were built on to the countryside palette,
+// so the cards sit naturally on the paper background.
+.experience {
+  --text: var(--ink);
+  --text-muted: var(--ink-muted);
+  --accent: var(--olive);
+  --accent-soft: color-mix(in srgb, var(--sage) 16%, transparent);
+  --accent-ring: color-mix(in srgb, var(--sage) 45%, transparent);
+  --surface: var(--card);
+  --surface-2: var(--paper);
+  --border: var(--rule);
+  --radius: 12px;
+  --success: var(--sage);
+  --shadow: 0 1px 0 var(--rule), 0 12px 28px -18px color-mix(in srgb, var(--ink) 40%, transparent);
+  --glass-bg: var(--card);
+  --glass-border: var(--rule);
+  --glass-edge: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  --glass-blur: none;
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    white-space: nowrap;
+  }
+
+  .xp-card,
+  .impact-strip .impact {
+    background: var(--card);
+  }
+
+  // Card-like links: no prose underline.
+  .xp-index__item,
+  .xp-live__ring,
+  .xp-live .button {
+    text-decoration: none;
+  }
+
+  .xp-label {
+    font-family: var(--sans);
+  }
+}
+
 .experience {
   h3,
   h4,

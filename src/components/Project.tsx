@@ -260,12 +260,13 @@ function Projects() {
 
   return (
     <section id="projects" className="section projects" aria-labelledby="projects-title">
-      <header className="section-header projects__header">
+      <header className="section-head projects__header">
         <div>
+          <p className="kicker">Things I build for fun</p>
           <h2 id="projects-title">Projects</h2>
           <p>Personal projects from my GitHub.</p>
         </div>
-        <a className="btn btn--ghost" href={profile.github} target="_blank" rel="noopener noreferrer">
+        <a className="button button--plain" href={profile.github} target="_blank" rel="noopener noreferrer">
           <GitHubIcon /> View all on GitHub
         </a>
       </header>
