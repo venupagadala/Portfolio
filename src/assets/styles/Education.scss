@@ -1,75 +1,55 @@
 .education {
-  &__grid {
+  &__cols {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 32px;
+    gap: 40px 56px;
 
     @media (max-width: 860px) {
       grid-template-columns: 1fr;
     }
   }
 
-  &__col-title {
-    margin: 0 0 14px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
+  &__label {
+    margin: 0 0 6px;
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--text-muted) !important;
-  }
-}
-
-.edu-list {
-  display: grid;
-  gap: 12px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.edu-card {
-  display: flex;
-  gap: 14px;
-  padding: 18px 20px;
-  border-radius: var(--radius);
-  background: var(--surface);
-  border: 1px solid var(--border);
-
-  &--highlight {
-    border-color: var(--accent-ring);
-    background: linear-gradient(135deg, var(--accent-soft), var(--surface) 70%);
+    color: var(--sage);
   }
 
-  &__icon {
-    flex: none;
-    display: grid;
-    place-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: var(--accent-soft);
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 
-    svg {
-      color: var(--accent) !important;
+    li {
+      padding: 16px 0;
+      border-bottom: 1px dashed var(--rule);
+    }
+
+    h4 {
+      margin: 0 0 4px;
+      font-size: 1.12rem;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.97rem;
+      color: var(--ink-muted);
     }
   }
 
-  h4 {
-    margin: 0 0 4px;
-    font-size: 1rem;
-    line-height: 1.4;
-    color: var(--text) !important;
+  &__ribbon {
+    margin-right: 8px;
+    color: var(--wheat);
   }
 
-  p {
-    margin: 0;
-    font-size: 0.92rem;
-    line-height: 1.5;
-    color: var(--text-muted) !important;
-  }
-
-  &__year {
+  &__date {
+    font-family: var(--sans);
+    font-size: 0.9rem;
     font-weight: 400;
-    color: var(--text-muted) !important;
+    color: var(--ink-muted);
   }
 }

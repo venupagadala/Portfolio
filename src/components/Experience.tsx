@@ -141,7 +141,7 @@ function RoleCard({ role }: { role: Role }) {
                 <span className="xp-live__areas">{role.liveSite.areas.join(" · ")}</span>
               </div>
               <a
-                className={isHd ? "xp-live__ring" : "btn btn--ghost"}
+                className={isHd ? "xp-live__ring" : "button button--plain"}
                 href={role.liveSite.href}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -211,7 +211,8 @@ function Experience() {
 
   return (
     <section id="experience" className="section experience" aria-labelledby="experience-title">
-      <header className="section-header">
+      <header className="section-head">
+        <p className="kicker">Where I've worked</p>
         <h2 id="experience-title">Experience</h2>
         <p>
           About five years across HD Supply / Home Depot, AT&amp;T and Essilor, working on both

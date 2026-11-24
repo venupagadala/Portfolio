@@ -1,126 +1,99 @@
 .hero {
   position: relative;
   display: flex;
-  align-items: center;
-  min-height: min(80vh, 720px);
-  padding: 112px var(--section-x) 72px;
+  flex-direction: column;
+  min-height: min(100vh, 900px);
+  padding-top: 72px;
+  background: linear-gradient(180deg, var(--paper) 0%, var(--sky) 100%);
 
-  &__inner {
-    position: relative;
-    display: flex;
-    gap: clamp(24px, 4vw, 48px);
-    align-items: center;
+  &__text {
     width: 100%;
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: clamp(24px, 6vw, 72px) var(--gutter) 24px;
   }
 
-  &__avatar {
-    flex: none;
-    width: 132px;
-    height: 132px;
-    border-radius: 32px;
-    object-fit: cover;
-    box-shadow: 0 0 0 4px var(--accent-soft), var(--shadow);
-  }
-
-  &__status {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin: 0 0 16px;
-    padding: 6px 14px;
-    border-radius: 999px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--text) !important;
-  }
-
-  &__dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--success);
+  &__hello {
+    margin: 0 0 4px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    color: var(--sage);
   }
 
   h1 {
     margin: 0;
-    font-size: clamp(2.6rem, 7vw, 5rem);
-    line-height: 1.05;
+    font-size: clamp(3rem, 8vw, 5.6rem);
+    font-weight: 600;
     letter-spacing: -0.02em;
-    color: var(--text) !important;
+    line-height: 1.02;
   }
 
   &__title {
-    margin: 8px 0 16px;
-    font-size: clamp(1.3rem, 3vw, 2rem);
-    font-weight: 700;
-    color: var(--accent) !important;
+    margin: 14px 0 22px;
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    font-weight: 600;
+    color: var(--olive);
+
+    span {
+      margin: 0 6px;
+      color: var(--wheat);
+    }
   }
 
-  &__tagline {
+  &__summary {
     max-width: none;
-    margin: 0 0 28px;
-    font-size: clamp(1rem, 1.6vw, 1.2rem);
-    line-height: 1.6;
-    color: var(--text-muted) !important;
+    margin: 0 0 30px;
+    font-size: clamp(1.05rem, 1.5vw, 1.15rem);
+    line-height: 1.75;
+    color: var(--ink-muted);
   }
 
-  &__cta {
+  &__actions {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-bottom: 24px;
-
-    .btn--ghost {
-      background: var(--surface);
-    }
+    margin-bottom: 22px;
   }
 
-  &__social {
+  &__links {
     display: flex;
-    gap: 6px;
+    flex-wrap: wrap;
+    gap: 6px 12px;
     margin: 0;
-    padding: 0;
-    list-style: none;
-
-    a {
-      display: grid;
-      place-items: center;
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      color: var(--text) !important;
-
-      &:hover {
-        background: var(--accent-soft);
-        color: var(--accent) !important;
-      }
-    }
-
-    svg {
-      font-size: 1.6rem;
-    }
-  }
-
-  @media (max-width: 768px) {
-    min-height: auto;
-    padding-top: 104px;
-
-    &__inner {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    &__avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 24px;
-    }
+    font-size: 0.98rem;
+    color: var(--ink-muted);
   }
 }
 
-.hero__content {
-  flex: 1;
-  min-width: 0;
+.landscape {
+  display: block;
+  width: 100%;
+  // 25vw matches the artwork's 4:1 ratio, so the sun is never cropped on wide screens.
+  height: clamp(180px, 25vw, 560px);
+  margin-top: auto;
+
+  .landscape__halo {
+    opacity: 0.25;
+  }
+
+  .landscape__stars,
+  .landscape__window {
+    display: none;
+  }
+
+  .dark-mode & {
+    .landscape__halo {
+      opacity: 0.12;
+    }
+
+    .landscape__stars,
+    .landscape__window {
+      display: inline;
+    }
+
+    .landscape__birds {
+      display: none;
+    }
+  }
 }
